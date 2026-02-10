@@ -1,1 +1,22 @@
+description: Weekly sanity test - sky color
+
+prompts:
+  - "What is the color of the sky?"
+
+providers:
+  # ChatGPT (OpenAI)
+  - id: openai:chat:gpt-4.1-mini
+    config:
+      temperature: 0
+
+  # Gemini (Google AI Studio)
+  - id: google:gemini-2.5-pro
+    config:
+      temperature: 0
+
+tests:
+  - assert:
+      # Keep the first test simple: ensure the answer mentions "blue".
+      - type: contains
+        value: "blue"
 
