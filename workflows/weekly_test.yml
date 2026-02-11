@@ -1,0 +1,35 @@
+name: Weekly AI Benchmark
+on:
+  schedule:
+    - cron: '0 12 * * 4' # 12:00 UTC = 9:00 AM GMT-3 every Thursday
+  workflow_dispatch:   # Allows you to run it manually for testing
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to save the CSV back to the repo
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run benchmark
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python benchmark.py
+
+      - name: Commit and Push Results
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add results.csv
+          git commit -m "Update weekly AI benchmark results" || echo "No changes to commit"
+          git push
