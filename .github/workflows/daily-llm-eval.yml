@@ -21,18 +21,16 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Clean any repo-installed deps
+      - name: Clean local deps + npx cache
         run: |
           rm -rf node_modules
+          rm -rf ~/.npm/_npx
 
       - name: Run promptfoo (fresh npx)
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          # Clear npx cache so native modules are fetched/compiled for this runner
-          rm -rf ~/.npm/_npx
-
           mkdir -p results/history
           TS=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
 
