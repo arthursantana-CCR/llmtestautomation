@@ -1,10 +1,10 @@
 name: Daily LLM Eval (OpenAI + Claude)
 
-"on":
+on:
+  workflow_dispatch:
   schedule:
     # 10:00 GMT-3 = 13:00 UTC
     - cron: "0 13 * * *"
-  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -21,18 +21,25 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install deps
+      - name: Clean any repo-installed deps
         run: |
-          npm install
+          rm -rf node_modules
 
-      - name: Run promptfoo eval
+      - name: Run promptfoo (fresh npx)
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
+          # Clear npx cache so native modules are fetched/compiled for this runner
+          rm -rf ~/.npm/_npx
+
           mkdir -p results/history
           TS=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
-          npx promptfoo eval --no-cache -c ./promptfooconfig.yaml --output "results/history/${TS}.json"
+
+          npx -y promptfoo@latest eval --no-cache \
+            -c ./promptfooconfig.yaml \
+            --output "results/history/${TS}.json"
+
           cp "results/history/${TS}.json" results/latest.json
 
       - name: Commit results back to repo
