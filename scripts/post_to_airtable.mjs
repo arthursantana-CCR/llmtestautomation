@@ -8,51 +8,133 @@ if (!pat || !baseId) {
   throw new Error("Missing AIRTABLE_PAT or AIRTABLE_BASE_ID env vars.");
 }
 
-const latest = JSON.parse(fs.readFileSync("results/latest.json", "utf8"));
+const latestPath = "results/latest.json";
+const raw = fs.readFileSync(latestPath, "utf8");
+const latest = JSON.parse(raw);
 
-// ---- Minimal “best effort” extraction ----
-// You will likely tweak these once you confirm your exact latest.json shape.
 const nowUtc = new Date().toISOString();
 
-const prompt =
-  latest?.prompt ||
-  latest?.test?.prompt ||
-  latest?.tests?.[0]?.prompt ||
-  latest?.config?.prompts?.[0] ||
-  "";
+function asArray(x) {
+  if (Array.isArray(x)) return x;
+  return [];
+}
 
-// Try to locate provider results in common places
-const resultsArray =
-  latest?.results || latest?.evals || latest?.outputs || latest?.testResults || [];
+function pickFirstString(...vals) {
+  for (const v of vals) {
+    if (typeof v === "string" && v.trim() !== "") return v;
+  }
+  return "";
+}
+
+function pickFirstBool(...vals) {
+  for (const v of vals) {
+    if (typeof v === "boolean") return v;
+  }
+  return false;
+}
+
+function flattenPossibleResults(obj) {
+  // Promptfoo JSON shapes vary; try common keys and normalize to a flat array of result-like objects
+  const candidates = [
+    obj?.results,
+    obj?.evals,
+    obj?.outputs,
+    obj?.testResults,
+    obj?.runs,
+    obj?.data?.results,
+    obj?.result?.results,
+  ];
+
+  // If any candidate is an array, return it
+  for (const c of candidates) {
+    if (Array.isArray(c)) return c;
+  }
+
+  // Sometimes results are stored as an object map; convert values to array
+  for (const c of candidates) {
+    if (c && typeof c === "object") {
+      const vals = Object.values(c);
+      if (vals.some(Array.isArray)) {
+        // e.g., { openai: [...], anthropic: [...] }
+        return vals.flatMap(v => asArray(v));
+      }
+      // e.g., { openai: {..}, anthropic: {..} }
+      return vals;
+    }
+  }
+
+  return [];
+}
+
+const resultsArray = flattenPossibleResults(latest);
 
 function findResult(hint) {
   const h = hint.toLowerCase();
+
   for (const r of resultsArray) {
-    const provider = String(r?.provider || r?.providerId || r?.model || "").toLowerCase();
-    if (provider.includes(h)) return r;
+    const provider = String(r?.provider || r?.providerId || r?.model || r?.id || "").toLowerCase();
+    const output = String(r?.output || r?.response || r?.completion || r?.text || "").toLowerCase();
+
+    if (provider.includes(h) || output.includes(h)) return r;
   }
+
   return null;
 }
 
+// Prompt extraction (best-effort)
+const prompt = pickFirstString(
+  latest?.prompt,
+  latest?.test?.prompt,
+  latest?.tests?.?.[0]?.prompt,
+  latest?.config?.prompt,
+  latest?.config?.prompts?.?.[0],
+  latest?.cases?.?.[0]?.prompt
+);
+
+// Provider results
 const openaiR = findResult("openai") || {};
 const claudeR = findResult("anthropic") || findResult("claude") || {};
 
-const openaiModel = openaiR.provider || openaiR.model || "gpt-4.1-mini";
-const claudeModel = claudeR.provider || claudeR.model || "claude";
+// Model names
+const openaiModel = pickFirstString(
+  openaiR?.provider,
+  openaiR?.model,
+  openaiR?.id,
+  latest?.config?.providers?.[0]?.model,
+  latest?.config?.providers?.[0]?.id,
+  "openai"
+);
 
-const openaiOutput = openaiR.output || openaiR.response || openaiR.text || "";
-const claudeOutput = claudeR.output || claudeR.response || claudeR.text || "";
+const claudeModel = pickFirstString(
+  claudeR?.provider,
+  claudeR?.model,
+  claudeR?.id,
+  latest?.config?.providers?.[1]?.model,
+  latest?.config?.providers?.[1]?.id,
+  "anthropic"
+);
 
-// “Passed” might exist directly or via assertions; default false if missing
-const openaiPassed =
-  openaiR.passed ??
-  openaiR.success ??
-  (Array.isArray(openaiR.assertions) ? openaiR.assertions.every(a => a.pass || a.passed) : false);
+// Outputs
+const openaiOutput = pickFirstString(openaiR?.output, openaiR?.response, openaiR?.completion, openaiR?.text);
+const claudeOutput = pickFirstString(claudeR?.output, claudeR?.response, claudeR?.completion, claudeR?.text);
 
-const claudePassed =
-  claudeR.passed ??
-  claudeR.success ??
-  (Array.isArray(claudeR.assertions) ? claudeR.assertions.every(a => a.pass || a.passed) : false);
+// Pass/fail (best-effort)
+function inferPassed(r) {
+  if (!r || typeof r !== "object") return false;
+
+  const direct = pickFirstBool(r?.passed, r?.success, r?.ok);
+  if (direct !== false) return direct;
+
+  const assertions = asArray(r?.assertions);
+  if (assertions.length > 0) {
+    return assertions.every(a => a?.pass === true || a?.passed === true);
+  }
+
+  return false;
+}
+
+const openaiPassed = inferPassed(openaiR);
+const claudePassed = inferPassed(claudeR);
 
 const githubRunUrl =
   process.env.GITHUB_RUN_URL ||
@@ -62,12 +144,12 @@ const fields = {
   RunID: nowUtc,
   RunTimeUTC: nowUtc,
   Prompt: prompt,
-  OpenAI_Model: String(openaiModel),
-  OpenAI_Output: String(openaiOutput),
-  OpenAI_Passed: Boolean(openaiPassed),
-  Claude_Model: String(claudeModel),
-  Claude_Output: String(claudeOutput),
-  Claude_Passed: Boolean(claudePassed),
+  OpenAI_Model: openaiModel,
+  OpenAI_Output: openaiOutput,
+  OpenAI_Passed: openaiPassed,
+  Claude_Model: claudeModel,
+  Claude_Output: claudeOutput,
+  Claude_Passed: claudePassed,
   GitHub_Run_URL: githubRunUrl,
 };
 
