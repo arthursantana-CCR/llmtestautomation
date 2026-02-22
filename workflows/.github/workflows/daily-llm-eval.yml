@@ -53,6 +53,8 @@ jobs:
 
       - name: Commit results back to repo
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
@@ -65,8 +67,23 @@ jobs:
 
           git commit -m "Daily eval run"
 
-          git pull --rebase origin main
-          git push origin HEAD:main
+          # Retry loop to handle concurrent pushes to main
+          for i in 1 2 3 4 5; do
+            echo "Attempt $i: rebasing on latest main and pushing..."
+            git fetch origin main
+            git rebase origin/main || (git rebase --abort && exit 1)
+
+            if git push origin HEAD:main; then
+              echo "Push succeeded."
+              exit 0
+            fi
+
+            echo "Push failed (likely non-fast-forward). Waiting a bit and retrying..."
+            sleep $((i * 2))
+          done
+
+          echo "Push failed after multiple retries."
+          exit 1
 
       - name: Post results to Airtable
         env:
