@@ -15,8 +15,7 @@ const latest = JSON.parse(raw);
 const nowUtc = new Date().toISOString();
 
 function asArray(x) {
-  if (Array.isArray(x)) return x;
-  return [];
+  return Array.isArray(x) ? x : [];
 }
 
 function pickFirstString(...vals) {
@@ -26,15 +25,8 @@ function pickFirstString(...vals) {
   return "";
 }
 
-function pickFirstBool(...vals) {
-  for (const v of vals) {
-    if (typeof v === "boolean") return v;
-  }
-  return false;
-}
-
 function flattenPossibleResults(obj) {
-  // Promptfoo JSON shapes vary; try common keys and normalize to a flat array of result-like objects
+  // Promptfoo JSON shapes vary; try common keys and normalize to a flat array
   const candidates = [
     obj?.results,
     obj?.evals,
@@ -45,20 +37,16 @@ function flattenPossibleResults(obj) {
     obj?.result?.results,
   ];
 
-  // If any candidate is an array, return it
   for (const c of candidates) {
     if (Array.isArray(c)) return c;
   }
 
-  // Sometimes results are stored as an object map; convert values to array
   for (const c of candidates) {
     if (c && typeof c === "object") {
       const vals = Object.values(c);
-      if (vals.some(Array.isArray)) {
-        // e.g., { openai: [...], anthropic: [...] }
-        return vals.flatMap(v => asArray(v));
-      }
-      // e.g., { openai: {..}, anthropic: {..} }
+      // If it's a map of arrays: { openai: [...], anthropic: [...] }
+      if (vals.some(Array.isArray)) return vals.flatMap(v => asArray(v));
+      // If it's a map of objects: { openai: {...}, anthropic: {...} }
       return vals;
     }
   }
@@ -85,10 +73,10 @@ function findResult(hint) {
 const prompt = pickFirstString(
   latest?.prompt,
   latest?.test?.prompt,
-  latest?.tests?.?.[0]?.prompt,
+  latest?.tests?.[0]?.prompt,
+  latest?.cases?.[0]?.prompt,
   latest?.config?.prompt,
-  latest?.config?.prompts?.?.[0],
-  latest?.cases?.?.[0]?.prompt
+  latest?.config?.prompts?.[0]
 );
 
 // Provider results
@@ -118,14 +106,15 @@ const claudeModel = pickFirstString(
 const openaiOutput = pickFirstString(openaiR?.output, openaiR?.response, openaiR?.completion, openaiR?.text);
 const claudeOutput = pickFirstString(claudeR?.output, claudeR?.response, claudeR?.completion, claudeR?.text);
 
-// Pass/fail (best-effort)
+// Pass/fail inference (best-effort)
 function inferPassed(r) {
   if (!r || typeof r !== "object") return false;
 
-  const direct = pickFirstBool(r?.passed, r?.success, r?.ok);
-  if (direct !== false) return direct;
+  if (typeof r.passed === "boolean") return r.passed;
+  if (typeof r.success === "boolean") return r.success;
+  if (typeof r.ok === "boolean") return r.ok;
 
-  const assertions = asArray(r?.assertions);
+  const assertions = asArray(r.assertions);
   if (assertions.length > 0) {
     return assertions.every(a => a?.pass === true || a?.passed === true);
   }
