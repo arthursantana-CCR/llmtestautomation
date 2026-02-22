@@ -8,140 +8,68 @@ if (!pat || !baseId) {
   throw new Error("Missing AIRTABLE_PAT or AIRTABLE_BASE_ID env vars.");
 }
 
-const latestPath = "results/latest.json";
-const raw = fs.readFileSync(latestPath, "utf8");
-const latest = JSON.parse(raw);
+const latest = JSON.parse(fs.readFileSync("results/latest.json", "utf8"));
 
-const nowUtc = new Date().toISOString();
+// ---- Extract what we need from YOUR Promptfoo export shape ----
+const exportedAt =
+  latest?.metadata?.exportedAt ||
+  latest?.results?.timestamp ||
+  new Date().toISOString();
 
-function asArray(x) {
-  return Array.isArray(x) ? x : [];
+const prompt =
+  latest?.results?.prompts?.[0]?.raw ||
+  latest?.config?.prompts?.[0] ||
+  "";
+
+// This is the array that contains per-provider eval results
+const evalResults = Array.isArray(latest?.results?.results) ? latest.results.results : [];
+
+// Helper to pick the entry for a provider by prefix
+function findByProviderPrefix(prefix) {
+  const p = prefix.toLowerCase();
+  return evalResults.find(r => String(r?.provider?.id || "").toLowerCase().startsWith(p)) || null;
 }
 
-function pickFirstString(...vals) {
-  for (const v of vals) {
-    if (typeof v === "string" && v.trim() !== "") return v;
-  }
-  return "";
+function getModelId(r) {
+  return String(r?.provider?.id || "");
 }
 
-function flattenPossibleResults(obj) {
-  // Promptfoo JSON shapes vary; try common keys and normalize to a flat array
-  const candidates = [
-    obj?.results,
-    obj?.evals,
-    obj?.outputs,
-    obj?.testResults,
-    obj?.runs,
-    obj?.data?.results,
-    obj?.result?.results,
-  ];
-
-  for (const c of candidates) {
-    if (Array.isArray(c)) return c;
-  }
-
-  for (const c of candidates) {
-    if (c && typeof c === "object") {
-      const vals = Object.values(c);
-      // If it's a map of arrays: { openai: [...], anthropic: [...] }
-      if (vals.some(Array.isArray)) return vals.flatMap(v => asArray(v));
-      // If it's a map of objects: { openai: {...}, anthropic: {...} }
-      return vals;
-    }
-  }
-
-  return [];
+function getOutput(r) {
+  return String(r?.response?.output || "");
 }
 
-const resultsArray = flattenPossibleResults(latest);
-
-function findResult(hint) {
-  const h = hint.toLowerCase();
-
-  for (const r of resultsArray) {
-    const provider = String(r?.provider || r?.providerId || r?.model || r?.id || "").toLowerCase();
-    const output = String(r?.output || r?.response || r?.completion || r?.text || "").toLowerCase();
-
-    if (provider.includes(h) || output.includes(h)) return r;
-  }
-
-  return null;
-}
-
-// Prompt extraction (best-effort)
-const prompt = pickFirstString(
-  latest?.prompt,
-  latest?.test?.prompt,
-  latest?.tests?.[0]?.prompt,
-  latest?.cases?.[0]?.prompt,
-  latest?.config?.prompt,
-  latest?.config?.prompts?.[0]
-);
-
-// Provider results
-const openaiR = findResult("openai") || {};
-const claudeR = findResult("anthropic") || findResult("claude") || {};
-
-// Model names
-const openaiModel = pickFirstString(
-  openaiR?.provider,
-  openaiR?.model,
-  openaiR?.id,
-  latest?.config?.providers?.[0]?.model,
-  latest?.config?.providers?.[0]?.id,
-  "openai"
-);
-
-const claudeModel = pickFirstString(
-  claudeR?.provider,
-  claudeR?.model,
-  claudeR?.id,
-  latest?.config?.providers?.[1]?.model,
-  latest?.config?.providers?.[1]?.id,
-  "anthropic"
-);
-
-// Outputs
-const openaiOutput = pickFirstString(openaiR?.output, openaiR?.response, openaiR?.completion, openaiR?.text);
-const claudeOutput = pickFirstString(claudeR?.output, claudeR?.response, claudeR?.completion, claudeR?.text);
-
-// Pass/fail inference (best-effort)
-function inferPassed(r) {
-  if (!r || typeof r !== "object") return false;
-
-  if (typeof r.passed === "boolean") return r.passed;
-  if (typeof r.success === "boolean") return r.success;
-  if (typeof r.ok === "boolean") return r.ok;
-
-  const assertions = asArray(r.assertions);
-  if (assertions.length > 0) {
-    return assertions.every(a => a?.pass === true || a?.passed === true);
-  }
-
+function getPassed(r) {
+  // Prefer gradingResult.pass when present; else fall back to success
+  if (typeof r?.gradingResult?.pass === "boolean") return r.gradingResult.pass;
+  if (typeof r?.success === "boolean") return r.success;
   return false;
 }
 
-const openaiPassed = inferPassed(openaiR);
-const claudePassed = inferPassed(claudeR);
+const openaiR = findByProviderPrefix("openai:");
+const claudeR = findByProviderPrefix("anthropic:");
 
+// Fields for Airtable
 const githubRunUrl =
   process.env.GITHUB_RUN_URL ||
   `https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
 
 const fields = {
-  RunID: nowUtc,
-  RunTimeUTC: nowUtc,
+  RunID: exportedAt,          // Primary key / unique identifier
+  RunTimeUTC: exportedAt,     // Date-time field
   Prompt: prompt,
-  OpenAI_Model: openaiModel,
-  OpenAI_Output: openaiOutput,
-  OpenAI_Passed: openaiPassed,
-  Claude_Model: claudeModel,
-  Claude_Output: claudeOutput,
-  Claude_Passed: claudePassed,
+
+  OpenAI_Model: openaiR ? getModelId(openaiR) : "",
+  OpenAI_Output: openaiR ? getOutput(openaiR) : "",
+  OpenAI_Passed: openaiR ? getPassed(openaiR) : false,
+
+  Claude_Model: claudeR ? getModelId(claudeR) : "",
+  Claude_Output: claudeR ? getOutput(claudeR) : "",
+  Claude_Passed: claudeR ? getPassed(claudeR) : false,
+
   GitHub_Run_URL: githubRunUrl,
 };
 
+// ---- POST to Airtable ----
 const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
 
 const res = await fetch(url, {
