@@ -5,36 +5,19 @@ This repository runs automated daily evaluations of multiple LLMs on the **same 
 
 ---
 
-## ⚠️ Required Setup for New Users (GitHub Actions Will NOT Run Automatically)
+## Important: Required Setup for New Users
 
-After cloning or copying this repository, **GitHub Actions will NOT run automatically**.
+After cloning or copying this repository, the automation pipeline will not run until you complete a few one-time configuration steps. This is expected behavior — scheduled workflows are disabled by default in new repositories, and API credentials are never transferred via Git.
 
-This is expected behavior. Scheduled workflows (daily runs) are disabled by default in newly created repositories or forks, and API credentials are never transferred via Git.
-
-New users must complete the following one-time setup in order for the automation pipeline to work.
+Follow the steps below before expecting any evaluations to run.
 
 ---
 
-### ✅ Step 1 — Enable GitHub Actions
+## Step 1 — Add Required API Keys as Repository Secrets
+
+The pipeline calls external APIs (OpenAI, Anthropic, and Airtable) on your behalf. To do this securely, it needs credentials stored as GitHub Secrets — encrypted values that live in your repository settings and are injected into the workflow at runtime. They are never written into code or committed to Git.
 
 Go to:
-```
-Repository → Actions tab
-```
-
-GitHub may display:
-
-> "Workflows aren't being run on this repository"
-
-Click **Enable workflows**.
-
-Until this step is completed, scheduled (cron) runs will not trigger, manual "Run workflow" executions will fail, and no evaluations will be executed.
-
----
-
-### ✅ Step 2 — Add Required API Keys as Repository Secrets
-
-Repository secrets must be configured manually. Go to:
 ```
 Repository → Settings → Secrets and variables → Actions → New repository secret
 ```
@@ -66,31 +49,87 @@ Add the following secrets:
 
 ---
 
-### ✅ Step 3 — Run the Workflow Once Manually
+## Step 2 — Confirm Your Airtable Table Has the Expected Fields
 
-Scheduled workflows may not trigger until they have been executed at least once manually. Go to:
+The following fields must exist in your Airtable table with **exactly** these names:
+
+| Field name | Type |
+|---|---|
+| `RunID` | Text (can be primary) |
+| `RunTimeUTC` | Date + time |
+| `Prompt` | Long text |
+| `OpenAI_Model` | Text |
+| `OpenAI_Output` | Long text |
+| `OpenAI_Passed` | Checkbox |
+| `Claude_Model` | Text |
+| `Claude_Output` | Long text |
+| `Claude_Passed` | Checkbox |
+| `GitHub_Run_URL` | URL |
+
+---
+
+## Step 3 — Confirm These Files Exist in the Repo
+
+| File | Purpose |
+|---|---|
+| `eval_config.yaml` | The file you edit to configure prompts and models |
+| `.github/workflows/daily-llm-eval.yml` | The scheduled workflow |
+| `scripts/build_promptfoo_config.mjs` | Generates Promptfoo config automatically |
+| `scripts/post_to_airtable.mjs` | Posts results to Airtable |
+| `package.json` + `package-lock.json` | Node dependencies |
+
+Your `.gitignore` should include:
+```
+node_modules/
+promptfooconfig.yaml
+```
+
+`promptfooconfig.yaml` is auto-generated at runtime and should not be tracked in Git.
+
+---
+
+## Step 4 — Enable GitHub Actions and Run the Workflow Manually
+
+### What GitHub Actions is
+
+GitHub Actions is GitHub's built-in automation system. It allows you to define workflows — sequences of steps that run automatically in response to triggers like a schedule (e.g. daily at a set time) or a manual button click. In this repository, GitHub Actions is what runs the daily LLM evaluations, posts results to Airtable, and commits result files back to Git — all without any manual intervention once set up.
+
+### Why you need to enable it
+
+Scheduled workflows are disabled by default in newly created or copied repositories. This means that even if everything else is configured correctly, the daily evaluations will not run until Actions is explicitly enabled.
+
+### How to enable it
+
+Go to:
+```
+Repository → Actions tab
+```
+
+GitHub may display a message such as:
+
+> "Workflows aren't being run on this repository"
+
+Click **Enable workflows**.
+
+### Run the workflow once manually
+
+After enabling Actions, trigger a manual run to verify everything is working. Scheduled workflows may also not activate until they have been run at least once manually.
+
+Go to:
 ```
 Actions → Daily LLM Eval (OpenAI + Claude)
 ```
 
-Click **Run workflow**.
+Click **Run workflow**, then verify:
+- A new JSON file appears in `results/history/`
+- `results/latest.json` has updated
+- A new row appears in Airtable
 
-After the first successful manual run, the daily cron schedule becomes active and automated evaluations will run at the configured time.
-
----
-
-### Setup Summary
-
-After cloning this repository, each new user must:
-1. Enable GitHub Actions
-2. Add API keys as Repository Secrets
-3. Run the workflow once manually
-
-Once these steps are completed, daily automated evaluations will run automatically.
+After this first successful run, the daily schedule will activate automatically.
 
 ---
 
-## The only file you need to edit
+## The Only File You Need to Edit
 
 ### `eval_config.yaml`
 
@@ -139,7 +178,7 @@ Each case has its own `assert_contains`. The `id` is just a short, descriptive l
 
 ---
 
-## Where results are stored
+## Where Results Are Stored
 
 **In Git (this repository)**, each run produces:
 - `results/history/<timestamp>.json` — immutable run history
@@ -152,7 +191,7 @@ These are committed back to the repo automatically by GitHub Actions.
 
 ---
 
-## How the pipeline works
+## How the Pipeline Works
 
 1. GitHub Actions triggers on a schedule (daily).
 2. The workflow reads `eval_config.yaml` and auto-generates `promptfooconfig.yaml`.
@@ -160,99 +199,6 @@ These are committed back to the repo automatically by GitHub Actions.
 4. Raw JSON results are written to `results/`.
 5. A summary row is POSTed to Airtable.
 6. Result files are committed back to Git.
-
----
-
-## One-time setup checklist
-
-### ✅ 1. Confirm these files exist in the repo
-
-| File | Purpose |
-|---|---|
-| `eval_config.yaml` | The file you edit |
-| `.github/workflows/daily-llm-eval.yml` | Scheduled workflow |
-| `scripts/build_promptfoo_config.mjs` | Generates Promptfoo config |
-| `scripts/post_to_airtable.mjs` | Posts results to Airtable |
-| `package.json` + `package-lock.json` | Node dependencies |
-
-Your `.gitignore` should include:
-```
-node_modules/
-promptfooconfig.yaml
-```
-
-`promptfooconfig.yaml` is auto-generated and should not be tracked in Git.
-
----
-
-### ✅ 2. Add OpenAI + Anthropic API keys as GitHub Secrets
-
-Go to: **Repository → Settings → Secrets and variables → Actions → New repository secret**
-
-| Secret name | Where to get it |
-|---|---|
-| `OPENAI_API_KEY` | OpenAI dashboard → API keys |
-| `ANTHROPIC_API_KEY` | Anthropic console → API keys |
-
-These secrets are never stored in code — they are injected at runtime by the workflow.
-
----
-
-### ✅ 3. Create Airtable credentials and add them as GitHub Secrets
-
-**Create a Personal Access Token (PAT) in Airtable:**
-
-1. Go to the Airtable Developer Hub.
-2. Create a Personal Access Token.
-3. Required scope: `data.records:write` (also recommended: `data.records:read`).
-4. Grant access to the specific base you will write to.
-5. Copy the PAT — you will only see it once.
-
-**Find your Base ID and Table name:**
-- Base ID looks like: `appXXXXXXXXXXXXXX`
-- Table name is typically: `DailyRuns`
-
-**Add these secrets to GitHub:**
-
-| Secret name | Value |
-|---|---|
-| `AIRTABLE_PAT` | Your PAT (starts with `pat...`) |
-| `AIRTABLE_BASE_ID` | Your base ID (starts with `app...`) |
-| `AIRTABLE_TABLE_NAME` | Your table name (e.g. `DailyRuns`) |
-
----
-
-### ✅ 4. Confirm your Airtable table has the expected fields
-
-The following fields must exist with **exactly** these names:
-
-| Field name | Type |
-|---|---|
-| `RunID` | Text (can be primary) |
-| `RunTimeUTC` | Date + time |
-| `Prompt` | Long text |
-| `OpenAI_Model` | Text |
-| `OpenAI_Output` | Long text |
-| `OpenAI_Passed` | Checkbox |
-| `Claude_Model` | Text |
-| `Claude_Output` | Long text |
-| `Claude_Passed` | Checkbox |
-| `GitHub_Run_URL` | URL |
-
----
-
-## Running a test manually
-
-Recommended after any change to `eval_config.yaml`.
-
-1. Go to **Actions** in GitHub.
-2. Select the workflow: **Daily LLM Eval (OpenAI + Claude)**.
-3. Click **Run workflow**.
-
-Then verify:
-- A new JSON file appears in `results/history/`
-- `results/latest.json` has updated
-- A new row appears in Airtable
 
 ---
 
@@ -266,7 +212,7 @@ To change the schedule, edit the `cron` expression in that file.
 
 ---
 
-## What to change most often
+## What to Change Most Often
 
 Most users only ever touch `eval_config.yaml`:
 
