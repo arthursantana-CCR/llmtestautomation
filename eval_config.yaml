@@ -9,5 +9,5 @@ max_tokens: 256
 cases:
   - id: "sky_blue"
     prompt: "What is the color of the sky?"
-    assert_contains: "purple"
+    assert_contains: "blue"
     assert_case_sensitive: false
