@@ -1,13 +1,13 @@
 # LLM Test Automation
 ### Promptfoo + GitHub Actions + Airtable
 
-This repository runs automated daily evaluations of multiple LLMs on the **same prompt suite**, stores JSON results in Git, and logs a summary row per run in Airtable. The goal is to track model performance **longitudinally** (over time) in a way that is usable by non-coders.
+This repository runs automated daily evaluations of multiple LLMs on the **same prompt suite**, stores JSON results in Git, and logs a summary row per run in Airtable. The goal is to track model performance over time in a way that is usable by non-coders.
 
 ---
 
 ## Important: Required Setup for New Users
 
-After cloning or copying this repository, the automation pipeline will not run until you complete a few one-time configuration steps. This is expected behavior — scheduled workflows are disabled by default in new repositories, and API credentials are never transferred via Git.
+After cloning or copying this repository, the automation pipeline will not run until you complete a few one-time configuration steps. This is expected behavior as scheduled workflows are disabled by default in new repositories, and API credentials are never transferred via Git.
 
 Follow the steps below before expecting any evaluations to run.
 
@@ -15,7 +15,7 @@ Follow the steps below before expecting any evaluations to run.
 
 ## Step 1 — Add Required API Keys as Repository Secrets
 
-The pipeline calls external APIs (OpenAI, Anthropic, and Airtable) on your behalf. To do this securely, it needs credentials stored as GitHub Secrets — encrypted values that live in your repository settings and are injected into the workflow at runtime. They are never written into code or committed to Git.
+The pipeline calls external APIs (OpenAI, Anthropic, and Airtable) on your behalf. To do this securely, it needs credentials stored as GitHub Secrets (encrypted values that live in your repository settings and are injected into the workflow at runtime). They are never written into code or committed to Git.
 
 Go to:
 ```
