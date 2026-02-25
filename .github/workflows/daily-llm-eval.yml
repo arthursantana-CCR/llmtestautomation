@@ -3,7 +3,7 @@ name: Daily LLM Eval (OpenAI + Claude)
 on:
   workflow_dispatch:
   schedule:
-    # 10:00 GMT-3 = 13:00 UTC
+    # 13:00 UTC = 10:00 GMT-3
     - cron: "0 13 * * *"
 
 permissions:
@@ -14,10 +14,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  eval:
+  run-eval:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -26,83 +27,82 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
-      - name: Install Node dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Clean npx cache
-        run: |
-          rm -rf ~/.npm/_npx
+      - name: Ensure results folders exist
+        run: mkdir -p results/history
 
-      - name: Install build tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential python3
+      - name: Build Promptfoo config
+        run: node scripts/build_promptfoo_config.mjs
 
-      - name: Build promptfoo config from eval_config.yaml
-        run: |
-          node scripts/build_promptfoo_config.mjs
-
-      - name: Run promptfoo (fresh npx)
+      # -------------------------------------------------------------------
+      # KEY FIX:
+      # - We allow Promptfoo to exit non-zero (FAILs or provider ERRORs)
+      # - We capture the exit code and continue the pipeline
+      # -------------------------------------------------------------------
+      - name: Run Promptfoo eval (do not fail workflow on FAIL/ERROR)
+        id: promptfoo
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          mkdir -p results/history
-          TS=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
+          set +e
+          echo "Running Promptfoo eval..."
+          npx promptfoo eval -c promptfooconfig.yaml --output results/latest.json
+          EXIT_CODE=$?
+          echo "Promptfoo exit code: $EXIT_CODE"
+          echo "$EXIT_CODE" > results/last_promptfoo_exit_code.txt
+          # Never fail this step; FAILs are valid datapoints for our use case
+          exit 0
 
-          npx -y promptfoo@latest eval --no-cache \
-            -c ./promptfooconfig.yaml \
-            --output "results/history/${TS}.json"
+      # -------------------------------------------------------------------
+      # Guardrail:
+      # If results/latest.json doesn't exist, something is genuinely broken.
+      # In that case, fail the job (we have no data to log/commit).
+      # -------------------------------------------------------------------
+      - name: Verify results were produced
+        run: |
+          if [ ! -f "results/latest.json" ]; then
+            echo "ERROR: results/latest.json not found. Eval did not produce results."
+            exit 1
+          fi
 
-          cp "results/history/${TS}.json" results/latest.json
-          echo "$TS" > results/latest_timestamp.txt
-
-      - name: Post results to Airtable
+      # -------------------------------------------------------------------
+      # Always post to Airtable, even if Promptfoo had FAILs or provider errors
+      # -------------------------------------------------------------------
+      - name: Post summary to Airtable (always)
+        if: always()
         env:
           AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
           AIRTABLE_TABLE_NAME: ${{ secrets.AIRTABLE_TABLE_NAME }}
           GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_RUN_ID: ${{ github.run_id }}
-        run: |
-          test -f results/latest.json
-          node scripts/post_to_airtable.mjs
+        run: node scripts/post_to_airtable.mjs
 
-      - name: Commit results back to repo
+      # -------------------------------------------------------------------
+      # Commit results back to repo (history + latest + timestamp)
+      # -------------------------------------------------------------------
+      - name: Commit and push results (always)
+        if: always()
         run: |
           set -e
 
+          # Configure bot identity for commits
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Discard generated config changes (generated from eval_config.yaml)
-          git checkout -- promptfooconfig.yaml || true
+          # Stage expected artifacts (adjust if your scripts produce more/less)
+          git add results/history || true
+          git add results/latest.json results/latest_timestamp.txt results/last_promptfoo_exit_code.txt || true
 
-          git add results/history results/latest.json results/latest_timestamp.txt
-
+          # Only commit if there are changes
           if git diff --cached --quiet; then
-            echo "No changes to commit"
+            echo "No changes to commit."
             exit 0
           fi
 
-          git commit -m "Daily eval run"
-
-          # Retry loop to handle concurrent pushes to main
-          for i in 1 2 3 4 5; do
-            echo "Attempt $i: rebasing on latest main and pushing..."
-            git fetch origin main
-            git rebase origin/main || (git rebase --abort && exit 1)
-
-            if git push origin HEAD:main; then
-              echo "Push succeeded."
-              exit 0
-            fi
-
-            echo "Push failed (likely non-fast-forward). Waiting a bit and retrying..."
-            sleep $((i * 2))
-          done
-
-          echo "Push failed after multiple retries."
-          exit 1
+          git commit -m "Daily eval results (run ${{ github.run_id }})"
+          git push
