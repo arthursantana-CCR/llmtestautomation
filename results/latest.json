@@ -1,8 +1,8 @@
 {
-  "evalId": "eval-Dx5-2026-02-25T16:50:50",
+  "evalId": "eval-Dn6-2026-02-25T17:24:14",
   "results": {
     "version": 3,
-    "timestamp": "2026-02-25T16:50:50.890Z",
+    "timestamp": "2026-02-25T17:24:14.714Z",
     "prompts": [
       {
         "id": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
@@ -16,7 +16,7 @@
           "testErrorCount": 0,
           "assertPassCount": 0,
           "assertFailCount": 1,
-          "totalLatencyMs": 2541,
+          "totalLatencyMs": 1772,
           "tokenUsage": {
             "prompt": 15,
             "completion": 60,
@@ -54,16 +54,16 @@
         "metrics": {
           "score": 0,
           "testPassCount": 0,
-          "testFailCount": 0,
-          "testErrorCount": 1,
+          "testFailCount": 1,
+          "testErrorCount": 0,
           "assertPassCount": 0,
-          "assertFailCount": 0,
-          "totalLatencyMs": 32628,
+          "assertFailCount": 1,
+          "totalLatencyMs": 3221,
           "tokenUsage": {
-            "prompt": 0,
-            "completion": 0,
+            "prompt": 15,
+            "completion": 87,
             "cached": 0,
-            "total": 0,
+            "total": 102,
             "numRequests": 1,
             "completionDetails": {
               "reasoning": 0,
@@ -85,7 +85,7 @@
           },
           "namedScores": {},
           "namedScoresCount": {},
-          "cost": 0
+          "cost": 0.0013499999999999999
         }
       }
     ],
@@ -121,8 +121,8 @@
             }
           ]
         },
-        "id": "84298771-4452-4a2e-993b-37fcbbe46a35",
-        "latencyMs": 2541,
+        "id": "a7353630-12ac-426a-bcd7-8fb3e09aa7d1",
+        "latencyMs": 1772,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -149,7 +149,7 @@
             }
           },
           "cached": false,
-          "latencyMs": 2541,
+          "latencyMs": 1772,
           "finishReason": "stop",
           "cost": 0.000102,
           "guardrails": {
@@ -163,17 +163,17 @@
                 "access-control-expose-headers": "X-Request-ID",
                 "alt-svc": "h3=\":443\"; ma=86400",
                 "cf-cache-status": "DYNAMIC",
-                "cf-ray": "9d38b43cdeb225da-LAX",
+                "cf-ray": "9d38e5285f7be824-ORD",
                 "connection": "keep-alive",
                 "content-encoding": "br",
                 "content-type": "application/json",
-                "date": "Wed, 25 Feb 2026 16:50:53 GMT",
+                "date": "Wed, 25 Feb 2026 17:24:16 GMT",
                 "openai-organization": "ccr-6gmybh",
-                "openai-processing-ms": "1499",
+                "openai-processing-ms": "1079",
                 "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
                 "openai-version": "2020-10-01",
                 "server": "cloudflare",
-                "set-cookie": "__cf_bm=KsO6zrWIs4pqw8.YC0XIB0W948oKd6_0wn_x7ehitFk-1772038251.0160382-1.0.1.1-cg2SRgaYVxm6OGGz93HA2cIqfoyEfABfCpnnkB5Z_KTqeZ_bglSk3_..zAO.Z3Ng8jCrItyUul6pXv6w6jsVqaViF2MSgONSm_VWlZMdA2MYkyfifWsVSEFCRvKZwsRB; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 17:20:53 GMT",
+                "set-cookie": "__cf_bm=IGL51IJlWEV_MpTIqnXdCinHv6kkXycvq3y2yRdVMnI-1772040254.7757838-1.0.1.1-ye2A2evH4Lxb7UMMNeAOY_mFaLTu735jguXOh2dfu6Lxoyj5mPjHWZnsPb_aXBu5jzooXzylIboxVot7ftndLaT3z1Gi0F4X1Mu2Bl9l9VNWrl5D0K_WrzG02p6itWSR; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 17:54:16 GMT",
                 "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
                 "transfer-encoding": "chunked",
                 "x-content-type-options": "nosniff",
@@ -184,7 +184,7 @@
                 "x-ratelimit-remaining-tokens": "199990",
                 "x-ratelimit-reset-requests": "120ms",
                 "x-ratelimit-reset-tokens": "3ms",
-                "x-request-id": "req_5e4a97db9ba94936a4e6a415dacf8776"
+                "x-request-id": "req_d9c8688f571d49838a2efc8583e731d5"
               }
             }
           }
@@ -224,17 +224,17 @@
               "access-control-expose-headers": "X-Request-ID",
               "alt-svc": "h3=\":443\"; ma=86400",
               "cf-cache-status": "DYNAMIC",
-              "cf-ray": "9d38b43cdeb225da-LAX",
+              "cf-ray": "9d38e5285f7be824-ORD",
               "connection": "keep-alive",
               "content-encoding": "br",
               "content-type": "application/json",
-              "date": "Wed, 25 Feb 2026 16:50:53 GMT",
+              "date": "Wed, 25 Feb 2026 17:24:16 GMT",
               "openai-organization": "ccr-6gmybh",
-              "openai-processing-ms": "1499",
+              "openai-processing-ms": "1079",
               "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
               "openai-version": "2020-10-01",
               "server": "cloudflare",
-              "set-cookie": "__cf_bm=KsO6zrWIs4pqw8.YC0XIB0W948oKd6_0wn_x7ehitFk-1772038251.0160382-1.0.1.1-cg2SRgaYVxm6OGGz93HA2cIqfoyEfABfCpnnkB5Z_KTqeZ_bglSk3_..zAO.Z3Ng8jCrItyUul6pXv6w6jsVqaViF2MSgONSm_VWlZMdA2MYkyfifWsVSEFCRvKZwsRB; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 17:20:53 GMT",
+              "set-cookie": "__cf_bm=IGL51IJlWEV_MpTIqnXdCinHv6kkXycvq3y2yRdVMnI-1772040254.7757838-1.0.1.1-ye2A2evH4Lxb7UMMNeAOY_mFaLTu735jguXOh2dfu6Lxoyj5mPjHWZnsPb_aXBu5jzooXzylIboxVot7ftndLaT3z1Gi0F4X1Mu2Bl9l9VNWrl5D0K_WrzG02p6itWSR; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 17:54:16 GMT",
               "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
               "transfer-encoding": "chunked",
               "x-content-type-options": "nosniff",
@@ -245,7 +245,7 @@
               "x-ratelimit-remaining-tokens": "199990",
               "x-ratelimit-reset-requests": "120ms",
               "x-ratelimit-reset-tokens": "3ms",
-              "x-request-id": "req_5e4a97db9ba94936a4e6a415dacf8776"
+              "x-request-id": "req_d9c8688f571d49838a2efc8583e731d5"
             }
           },
           "_promptfooFileMetadata": {}
@@ -253,11 +253,38 @@
         "failureReason": 1
       },
       {
-        "cost": 0,
-        "error": "API call error: Overloaded, status 529, type overloaded_error",
-        "gradingResult": null,
-        "id": "f2a0494d-5293-4ee3-90d9-cd893e1f379d",
-        "latencyMs": 32628,
+        "cost": 0.0013499999999999999,
+        "error": "Expected output to contain \"purple\"",
+        "gradingResult": {
+          "pass": false,
+          "score": 0,
+          "reason": "Expected output to contain \"purple\"",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Expected output to contain \"purple\"",
+              "assertion": {
+                "type": "contains",
+                "value": "{{expected}}",
+                "caseSensitive": false
+              },
+              "metadata": {
+                "renderedAssertionValue": "purple"
+              }
+            }
+          ]
+        },
+        "id": "05cdce65-6f90-481a-a9c9-8f16852b41ea",
+        "latencyMs": 3221,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -271,7 +298,14 @@
           "label": ""
         },
         "response": {
-          "error": "API call error: Overloaded, status 529, type overloaded_error"
+          "output": "The sky appears blue during a clear day. This blue color is caused by a phenomenon called Rayleigh scattering, where molecules in Earth's atmosphere scatter blue light from the sun more than other colors.\n\nOf course, the sky's appearance can change depending on conditions and time of day - it can appear red or orange during sunrise and sunset, gray during overcast weather, or dark during nighttime.",
+          "tokenUsage": {
+            "total": 102,
+            "prompt": 15,
+            "completion": 87
+          },
+          "finishReason": "stop",
+          "cost": 0.0013499999999999999
         },
         "score": 0,
         "success": false,
@@ -303,18 +337,18 @@
           "case_id": "sky_blue",
           "_promptfooFileMetadata": {}
         },
-        "failureReason": 2
+        "failureReason": 1
       }
     ],
     "stats": {
       "successes": 0,
-      "failures": 1,
-      "errors": 1,
+      "failures": 2,
+      "errors": 0,
       "tokenUsage": {
-        "prompt": 15,
-        "completion": 60,
+        "prompt": 30,
+        "completion": 147,
         "cached": 0,
-        "total": 75,
+        "total": 177,
         "numRequests": 2,
         "completionDetails": {
           "reasoning": 0,
@@ -334,7 +368,7 @@
           }
         }
       },
-      "durationMs": 32643
+      "durationMs": 3236
     }
   },
   "config": {
@@ -393,7 +427,7 @@
     "nodeVersion": "v20.20.0",
     "platform": "linux",
     "arch": "x64",
-    "exportedAt": "2026-02-25T16:51:23.585Z",
-    "evaluationCreatedAt": "2026-02-25T16:50:50.890Z"
+    "exportedAt": "2026-02-25T17:24:18.031Z",
+    "evaluationCreatedAt": "2026-02-25T17:24:14.714Z"
   }
 }
