@@ -5,6 +5,91 @@ This repository runs automated daily evaluations of multiple LLMs on the **same 
 
 ---
 
+## ⚠️ Required Setup for New Users (GitHub Actions Will NOT Run Automatically)
+
+After cloning or copying this repository, **GitHub Actions will NOT run automatically**.
+
+This is expected behavior. Scheduled workflows (daily runs) are disabled by default in newly created repositories or forks, and API credentials are never transferred via Git.
+
+New users must complete the following one-time setup in order for the automation pipeline to work.
+
+---
+
+### ✅ Step 1 — Enable GitHub Actions
+
+Go to:
+```
+Repository → Actions tab
+```
+
+GitHub may display:
+
+> "Workflows aren't being run on this repository"
+
+Click **Enable workflows**.
+
+Until this step is completed, scheduled (cron) runs will not trigger, manual "Run workflow" executions will fail, and no evaluations will be executed.
+
+---
+
+### ✅ Step 2 — Add Required API Keys as Repository Secrets
+
+Repository secrets must be configured manually. Go to:
+```
+Repository → Settings → Secrets and variables → Actions → New repository secret
+```
+
+Add the following secrets:
+
+| Secret Name | Description |
+|---|---|
+| `OPENAI_API_KEY` | OpenAI API key |
+| `ANTHROPIC_API_KEY` | Anthropic API key |
+| `AIRTABLE_PAT` | Airtable Personal Access Token |
+| `AIRTABLE_BASE_ID` | Airtable Base ID |
+| `AIRTABLE_TABLE_NAME` | Airtable table name (e.g. `DailyRuns`) |
+
+**Where to obtain these values:**
+
+**OpenAI API Key** — OpenAI Dashboard → API Keys page
+
+**Anthropic API Key** — Anthropic Console → API Keys
+
+**Airtable Personal Access Token (PAT):**
+1. Go to the Airtable Developer Hub.
+2. Create a Personal Access Token.
+3. Required scope: `data.records:write` (also recommended: `data.records:read`).
+4. Grant access to the specific base you will write to.
+5. Copy the PAT — you will only see it once.
+
+**Airtable Base ID** — found in the Airtable URL, looks like: `appXXXXXXXXXXXXXX`
+
+---
+
+### ✅ Step 3 — Run the Workflow Once Manually
+
+Scheduled workflows may not trigger until they have been executed at least once manually. Go to:
+```
+Actions → Daily LLM Eval (OpenAI + Claude)
+```
+
+Click **Run workflow**.
+
+After the first successful manual run, the daily cron schedule becomes active and automated evaluations will run at the configured time.
+
+---
+
+### Setup Summary
+
+After cloning this repository, each new user must:
+1. Enable GitHub Actions
+2. Add API keys as Repository Secrets
+3. Run the workflow once manually
+
+Once these steps are completed, daily automated evaluations will run automatically.
+
+---
+
 ## The only file you need to edit
 
 ### `eval_config.yaml`
