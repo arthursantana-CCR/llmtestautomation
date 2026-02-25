@@ -1,13 +1,17 @@
 # LLM Test Automation
 ### Promptfoo + GitHub Actions + Airtable
 
-This repository runs automated daily evaluations of multiple LLMs on the **same prompt suite**, stores JSON results in Git, and logs a summary row per run in Airtable. The goal is to track model performance over time in a way that is usable by non-coders.
+This repository runs automated daily evaluations of multiple LLMs on the **same prompt suite**, stores JSON results in Git, and logs a summary row per run in Airtable. The goal is to track model performance **longitudinally** (over time) in a way that is usable by non-coders.
 
 ---
 
-## Important: Required Setup for New Users
+## Getting Started
 
-After cloning or copying this repository, the automation pipeline will not run until you complete a few one-time configuration steps. This is expected behavior as scheduled workflows are disabled by default in new repositories, and API credentials are never transferred via Git.
+Git is a version control system that tracks changes to files over time. GitHub is a platform that hosts Git repositories online, making it easy to share and collaborate on code. This project lives in a GitHub repository — to use it, you first need to make a copy of it on your own GitHub account, which is called **cloning**.
+
+To clone this repository, go to the repository page on GitHub, click the green **Code** button, and follow the instructions to copy it to your account or local machine.
+
+Once cloned, you will need to complete a few one-time configuration steps before the automation pipeline will run. Scheduled workflows are disabled by default in new repositories, and API credentials are never transferred via Git — they must be added manually.
 
 Follow the steps below before expecting any evaluations to run.
 
@@ -15,7 +19,7 @@ Follow the steps below before expecting any evaluations to run.
 
 ## Step 1 — Add Required API Keys as Repository Secrets
 
-The pipeline calls external APIs (OpenAI, Anthropic, and Airtable) on your behalf. To do this securely, it needs credentials stored as GitHub Secrets (encrypted values that live in your repository settings and are injected into the workflow at runtime). They are never written into code or committed to Git.
+The pipeline calls external APIs (OpenAI, Anthropic, and Airtable) on your behalf. To do this securely, it needs credentials stored as GitHub Secrets — encrypted values that live in your repository settings and are injected into the workflow at runtime. They are never written into code or committed to Git.
 
 Go to:
 ```
