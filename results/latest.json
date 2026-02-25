@@ -1,8 +1,8 @@
 {
-  "evalId": "eval-TLO-2026-02-25T16:15:18",
+  "evalId": "eval-Dx5-2026-02-25T16:50:50",
   "results": {
     "version": 3,
-    "timestamp": "2026-02-25T16:15:18.402Z",
+    "timestamp": "2026-02-25T16:50:50.890Z",
     "prompts": [
       {
         "id": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
@@ -16,7 +16,7 @@
           "testErrorCount": 0,
           "assertPassCount": 0,
           "assertFailCount": 1,
-          "totalLatencyMs": 2554,
+          "totalLatencyMs": 2541,
           "tokenUsage": {
             "prompt": 15,
             "completion": 60,
@@ -58,7 +58,7 @@
           "testErrorCount": 1,
           "assertPassCount": 0,
           "assertFailCount": 0,
-          "totalLatencyMs": 23670,
+          "totalLatencyMs": 32628,
           "tokenUsage": {
             "prompt": 0,
             "completion": 0,
@@ -121,8 +121,8 @@
             }
           ]
         },
-        "id": "d13a12b0-3a1e-4647-899d-25610f8b8bec",
-        "latencyMs": 2554,
+        "id": "84298771-4452-4a2e-993b-37fcbbe46a35",
+        "latencyMs": 2541,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -149,7 +149,7 @@
             }
           },
           "cached": false,
-          "latencyMs": 2554,
+          "latencyMs": 2541,
           "finishReason": "stop",
           "cost": 0.000102,
           "guardrails": {
@@ -163,17 +163,17 @@
                 "access-control-expose-headers": "X-Request-ID",
                 "alt-svc": "h3=\":443\"; ma=86400",
                 "cf-cache-status": "DYNAMIC",
-                "cf-ray": "9d38802c6997d240-ORD",
+                "cf-ray": "9d38b43cdeb225da-LAX",
                 "connection": "keep-alive",
                 "content-encoding": "br",
                 "content-type": "application/json",
-                "date": "Wed, 25 Feb 2026 16:15:20 GMT",
+                "date": "Wed, 25 Feb 2026 16:50:53 GMT",
                 "openai-organization": "ccr-6gmybh",
-                "openai-processing-ms": "1681",
+                "openai-processing-ms": "1499",
                 "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
                 "openai-version": "2020-10-01",
                 "server": "cloudflare",
-                "set-cookie": "__cf_bm=0UG..O2LUGYFwMawTCZM41yUMPqqTEPTqqvNV9dt.U8-1772036118.4628804-1.0.1.1-Ge41LJC.pza.qy5clGfy32O4chXiBAYQOPAg9yuy61EGm.z9YaTBssnTosOWBHpjmzC9A2CuAMiGwo0MVCvrUAyJ_dHIoemYwAKqsRwbrAVtMuDvu1lgL.OMVHct6U_0; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 16:45:20 GMT",
+                "set-cookie": "__cf_bm=KsO6zrWIs4pqw8.YC0XIB0W948oKd6_0wn_x7ehitFk-1772038251.0160382-1.0.1.1-cg2SRgaYVxm6OGGz93HA2cIqfoyEfABfCpnnkB5Z_KTqeZ_bglSk3_..zAO.Z3Ng8jCrItyUul6pXv6w6jsVqaViF2MSgONSm_VWlZMdA2MYkyfifWsVSEFCRvKZwsRB; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 17:20:53 GMT",
                 "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
                 "transfer-encoding": "chunked",
                 "x-content-type-options": "nosniff",
@@ -184,7 +184,7 @@
                 "x-ratelimit-remaining-tokens": "199990",
                 "x-ratelimit-reset-requests": "120ms",
                 "x-ratelimit-reset-tokens": "3ms",
-                "x-request-id": "req_d888734892854151b745e587cd22a3c9"
+                "x-request-id": "req_5e4a97db9ba94936a4e6a415dacf8776"
               }
             }
           }
@@ -224,17 +224,17 @@
               "access-control-expose-headers": "X-Request-ID",
               "alt-svc": "h3=\":443\"; ma=86400",
               "cf-cache-status": "DYNAMIC",
-              "cf-ray": "9d38802c6997d240-ORD",
+              "cf-ray": "9d38b43cdeb225da-LAX",
               "connection": "keep-alive",
               "content-encoding": "br",
               "content-type": "application/json",
-              "date": "Wed, 25 Feb 2026 16:15:20 GMT",
+              "date": "Wed, 25 Feb 2026 16:50:53 GMT",
               "openai-organization": "ccr-6gmybh",
-              "openai-processing-ms": "1681",
+              "openai-processing-ms": "1499",
               "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
               "openai-version": "2020-10-01",
               "server": "cloudflare",
-              "set-cookie": "__cf_bm=0UG..O2LUGYFwMawTCZM41yUMPqqTEPTqqvNV9dt.U8-1772036118.4628804-1.0.1.1-Ge41LJC.pza.qy5clGfy32O4chXiBAYQOPAg9yuy61EGm.z9YaTBssnTosOWBHpjmzC9A2CuAMiGwo0MVCvrUAyJ_dHIoemYwAKqsRwbrAVtMuDvu1lgL.OMVHct6U_0; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 16:45:20 GMT",
+              "set-cookie": "__cf_bm=KsO6zrWIs4pqw8.YC0XIB0W948oKd6_0wn_x7ehitFk-1772038251.0160382-1.0.1.1-cg2SRgaYVxm6OGGz93HA2cIqfoyEfABfCpnnkB5Z_KTqeZ_bglSk3_..zAO.Z3Ng8jCrItyUul6pXv6w6jsVqaViF2MSgONSm_VWlZMdA2MYkyfifWsVSEFCRvKZwsRB; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 17:20:53 GMT",
               "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
               "transfer-encoding": "chunked",
               "x-content-type-options": "nosniff",
@@ -245,7 +245,7 @@
               "x-ratelimit-remaining-tokens": "199990",
               "x-ratelimit-reset-requests": "120ms",
               "x-ratelimit-reset-tokens": "3ms",
-              "x-request-id": "req_d888734892854151b745e587cd22a3c9"
+              "x-request-id": "req_5e4a97db9ba94936a4e6a415dacf8776"
             }
           },
           "_promptfooFileMetadata": {}
@@ -256,8 +256,8 @@
         "cost": 0,
         "error": "API call error: Overloaded, status 529, type overloaded_error",
         "gradingResult": null,
-        "id": "8d688b0f-dd28-4c3a-8525-a9ab55efeaa5",
-        "latencyMs": 23670,
+        "id": "f2a0494d-5293-4ee3-90d9-cd893e1f379d",
+        "latencyMs": 32628,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -334,7 +334,7 @@
           }
         }
       },
-      "durationMs": 23686
+      "durationMs": 32643
     }
   },
   "config": {
@@ -393,7 +393,7 @@
     "nodeVersion": "v20.20.0",
     "platform": "linux",
     "arch": "x64",
-    "exportedAt": "2026-02-25T16:15:42.137Z",
-    "evaluationCreatedAt": "2026-02-25T16:15:18.402Z"
+    "exportedAt": "2026-02-25T16:51:23.585Z",
+    "evaluationCreatedAt": "2026-02-25T16:50:50.890Z"
   }
 }
