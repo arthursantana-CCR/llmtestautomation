@@ -27,7 +27,6 @@ jobs:
         with:
           node-version: "20"
 
-      # ✅ NEW: install dependencies from package-lock.json (includes js-yaml)
       - name: Install Node dependencies
         run: npm ci
 
@@ -77,6 +76,9 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Discard generated config changes (generated from eval_config.yaml)
+          git checkout -- promptfooconfig.yaml || true
 
           git add results/history results/latest.json results/latest_timestamp.txt
 
