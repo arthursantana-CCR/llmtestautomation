@@ -1,8 +1,8 @@
 {
-  "evalId": "eval-pVS-2026-02-25T00:34:05",
+  "evalId": "eval-TLO-2026-02-25T16:15:18",
   "results": {
     "version": 3,
-    "timestamp": "2026-02-25T00:34:05.903Z",
+    "timestamp": "2026-02-25T16:15:18.402Z",
     "prompts": [
       {
         "id": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
@@ -10,13 +10,13 @@
         "label": "{{prompt}}",
         "provider": "openai:chat:gpt-4.1-mini",
         "metrics": {
-          "score": 1,
-          "testPassCount": 1,
-          "testFailCount": 0,
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 1,
           "testErrorCount": 0,
-          "assertPassCount": 1,
-          "assertFailCount": 0,
-          "totalLatencyMs": 1734,
+          "assertPassCount": 0,
+          "assertFailCount": 1,
+          "totalLatencyMs": 2554,
           "tokenUsage": {
             "prompt": 15,
             "completion": 60,
@@ -52,18 +52,18 @@
         "label": "{{prompt}}",
         "provider": "anthropic:messages:claude-sonnet-4-20250514",
         "metrics": {
-          "score": 1,
-          "testPassCount": 1,
+          "score": 0,
+          "testPassCount": 0,
           "testFailCount": 0,
-          "testErrorCount": 0,
-          "assertPassCount": 1,
+          "testErrorCount": 1,
+          "assertPassCount": 0,
           "assertFailCount": 0,
-          "totalLatencyMs": 2776,
+          "totalLatencyMs": 23670,
           "tokenUsage": {
-            "prompt": 15,
-            "completion": 87,
+            "prompt": 0,
+            "completion": 0,
             "cached": 0,
-            "total": 102,
+            "total": 0,
             "numRequests": 1,
             "completionDetails": {
               "reasoning": 0,
@@ -85,17 +85,18 @@
           },
           "namedScores": {},
           "namedScoresCount": {},
-          "cost": 0.0013499999999999999
+          "cost": 0
         }
       }
     ],
     "results": [
       {
         "cost": 0.000102,
+        "error": "Expected output to contain \"purple\"",
         "gradingResult": {
-          "pass": true,
-          "score": 1,
-          "reason": "All assertions passed",
+          "pass": false,
+          "score": 0,
+          "reason": "Expected output to contain \"purple\"",
           "namedScores": {},
           "tokensUsed": {
             "total": 0,
@@ -106,22 +107,22 @@
           },
           "componentResults": [
             {
-              "pass": true,
-              "score": 1,
-              "reason": "Assertion passed",
+              "pass": false,
+              "score": 0,
+              "reason": "Expected output to contain \"purple\"",
               "assertion": {
                 "type": "contains",
                 "value": "{{expected}}",
                 "caseSensitive": false
               },
               "metadata": {
-                "renderedAssertionValue": "blue"
+                "renderedAssertionValue": "purple"
               }
             }
           ]
         },
-        "id": "87d769bb-ea3a-4e4b-9504-694166983307",
-        "latencyMs": 1734,
+        "id": "d13a12b0-3a1e-4647-899d-25610f8b8bec",
+        "latencyMs": 2554,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -148,7 +149,7 @@
             }
           },
           "cached": false,
-          "latencyMs": 1734,
+          "latencyMs": 2554,
           "finishReason": "stop",
           "cost": 0.000102,
           "guardrails": {
@@ -162,17 +163,17 @@
                 "access-control-expose-headers": "X-Request-ID",
                 "alt-svc": "h3=\":443\"; ma=86400",
                 "cf-cache-status": "DYNAMIC",
-                "cf-ray": "9d331d734fa41ce8-ORD",
+                "cf-ray": "9d38802c6997d240-ORD",
                 "connection": "keep-alive",
                 "content-encoding": "br",
                 "content-type": "application/json",
-                "date": "Wed, 25 Feb 2026 00:34:07 GMT",
+                "date": "Wed, 25 Feb 2026 16:15:20 GMT",
                 "openai-organization": "ccr-6gmybh",
-                "openai-processing-ms": "1081",
+                "openai-processing-ms": "1681",
                 "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
                 "openai-version": "2020-10-01",
                 "server": "cloudflare",
-                "set-cookie": "__cf_bm=Y1lXx5eISWsq.yK.OdjKRXVLQTAN9Cavn_KcgHaFiks-1771979645.96263-1.0.1.1-vOMIf.Ezv7D4cqqXNKRipuGkEBwQgEqvhmSd_mwKcili5_4j6pwAEUHltMpcsT2UWU_1fff9j27ICA87YIAZFLvLxH4sBFVOtF8HlThyKm_f_xUP5EpDCzWT52rsRlB0; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 01:04:07 GMT",
+                "set-cookie": "__cf_bm=0UG..O2LUGYFwMawTCZM41yUMPqqTEPTqqvNV9dt.U8-1772036118.4628804-1.0.1.1-Ge41LJC.pza.qy5clGfy32O4chXiBAYQOPAg9yuy61EGm.z9YaTBssnTosOWBHpjmzC9A2CuAMiGwo0MVCvrUAyJ_dHIoemYwAKqsRwbrAVtMuDvu1lgL.OMVHct6U_0; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 16:45:20 GMT",
                 "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
                 "transfer-encoding": "chunked",
                 "x-content-type-options": "nosniff",
@@ -183,17 +184,17 @@
                 "x-ratelimit-remaining-tokens": "199990",
                 "x-ratelimit-reset-requests": "120ms",
                 "x-ratelimit-reset-tokens": "3ms",
-                "x-request-id": "req_abec564477be4b418ec49aa5156d9c11"
+                "x-request-id": "req_d888734892854151b745e587cd22a3c9"
               }
             }
           }
         },
-        "score": 1,
-        "success": true,
+        "score": 0,
+        "success": false,
         "testCase": {
           "vars": {
             "prompt": "What is the color of the sky?",
-            "expected": "blue",
+            "expected": "purple",
             "case_id": "sky_blue"
           },
           "assert": [
@@ -211,7 +212,7 @@
         "testIdx": 0,
         "vars": {
           "prompt": "What is the color of the sky?",
-          "expected": "blue",
+          "expected": "purple",
           "case_id": "sky_blue"
         },
         "metadata": {
@@ -223,17 +224,17 @@
               "access-control-expose-headers": "X-Request-ID",
               "alt-svc": "h3=\":443\"; ma=86400",
               "cf-cache-status": "DYNAMIC",
-              "cf-ray": "9d331d734fa41ce8-ORD",
+              "cf-ray": "9d38802c6997d240-ORD",
               "connection": "keep-alive",
               "content-encoding": "br",
               "content-type": "application/json",
-              "date": "Wed, 25 Feb 2026 00:34:07 GMT",
+              "date": "Wed, 25 Feb 2026 16:15:20 GMT",
               "openai-organization": "ccr-6gmybh",
-              "openai-processing-ms": "1081",
+              "openai-processing-ms": "1681",
               "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
               "openai-version": "2020-10-01",
               "server": "cloudflare",
-              "set-cookie": "__cf_bm=Y1lXx5eISWsq.yK.OdjKRXVLQTAN9Cavn_KcgHaFiks-1771979645.96263-1.0.1.1-vOMIf.Ezv7D4cqqXNKRipuGkEBwQgEqvhmSd_mwKcili5_4j6pwAEUHltMpcsT2UWU_1fff9j27ICA87YIAZFLvLxH4sBFVOtF8HlThyKm_f_xUP5EpDCzWT52rsRlB0; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 01:04:07 GMT",
+              "set-cookie": "__cf_bm=0UG..O2LUGYFwMawTCZM41yUMPqqTEPTqqvNV9dt.U8-1772036118.4628804-1.0.1.1-Ge41LJC.pza.qy5clGfy32O4chXiBAYQOPAg9yuy61EGm.z9YaTBssnTosOWBHpjmzC9A2CuAMiGwo0MVCvrUAyJ_dHIoemYwAKqsRwbrAVtMuDvu1lgL.OMVHct6U_0; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Feb 2026 16:45:20 GMT",
               "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
               "transfer-encoding": "chunked",
               "x-content-type-options": "nosniff",
@@ -244,45 +245,19 @@
               "x-ratelimit-remaining-tokens": "199990",
               "x-ratelimit-reset-requests": "120ms",
               "x-ratelimit-reset-tokens": "3ms",
-              "x-request-id": "req_abec564477be4b418ec49aa5156d9c11"
+              "x-request-id": "req_d888734892854151b745e587cd22a3c9"
             }
           },
           "_promptfooFileMetadata": {}
         },
-        "failureReason": 0
+        "failureReason": 1
       },
       {
-        "cost": 0.0013499999999999999,
-        "gradingResult": {
-          "pass": true,
-          "score": 1,
-          "reason": "All assertions passed",
-          "namedScores": {},
-          "tokensUsed": {
-            "total": 0,
-            "prompt": 0,
-            "completion": 0,
-            "cached": 0,
-            "numRequests": 0
-          },
-          "componentResults": [
-            {
-              "pass": true,
-              "score": 1,
-              "reason": "Assertion passed",
-              "assertion": {
-                "type": "contains",
-                "value": "{{expected}}",
-                "caseSensitive": false
-              },
-              "metadata": {
-                "renderedAssertionValue": "blue"
-              }
-            }
-          ]
-        },
-        "id": "a16e4fd7-83a2-472a-b669-cf44e7e9da05",
-        "latencyMs": 2776,
+        "cost": 0,
+        "error": "API call error: Overloaded, status 529, type overloaded_error",
+        "gradingResult": null,
+        "id": "8d688b0f-dd28-4c3a-8525-a9ab55efeaa5",
+        "latencyMs": 23670,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -296,21 +271,14 @@
           "label": ""
         },
         "response": {
-          "output": "The sky appears blue during a clear day. This blue color is caused by a phenomenon called Rayleigh scattering, where molecules in Earth's atmosphere scatter blue light from the sun more than other colors.\n\nOf course, the sky's appearance can change depending on conditions and time of day - it can appear red or orange during sunrise and sunset, gray during overcast weather, or dark during nighttime.",
-          "tokenUsage": {
-            "total": 102,
-            "prompt": 15,
-            "completion": 87
-          },
-          "finishReason": "stop",
-          "cost": 0.0013499999999999999
+          "error": "API call error: Overloaded, status 529, type overloaded_error"
         },
-        "score": 1,
-        "success": true,
+        "score": 0,
+        "success": false,
         "testCase": {
           "vars": {
             "prompt": "What is the color of the sky?",
-            "expected": "blue",
+            "expected": "purple",
             "case_id": "sky_blue"
           },
           "assert": [
@@ -328,25 +296,25 @@
         "testIdx": 0,
         "vars": {
           "prompt": "What is the color of the sky?",
-          "expected": "blue",
+          "expected": "purple",
           "case_id": "sky_blue"
         },
         "metadata": {
           "case_id": "sky_blue",
           "_promptfooFileMetadata": {}
         },
-        "failureReason": 0
+        "failureReason": 2
       }
     ],
     "stats": {
-      "successes": 2,
-      "failures": 0,
-      "errors": 0,
+      "successes": 0,
+      "failures": 1,
+      "errors": 1,
       "tokenUsage": {
-        "prompt": 30,
-        "completion": 147,
+        "prompt": 15,
+        "completion": 60,
         "cached": 0,
-        "total": 177,
+        "total": 75,
         "numRequests": 2,
         "completionDetails": {
           "reasoning": 0,
@@ -366,8 +334,7 @@
           }
         }
       },
-      "durationMs": 2823,
-      "evaluationDurationMs": 2823
+      "durationMs": 23686
     }
   },
   "config": {
@@ -396,7 +363,7 @@
       {
         "vars": {
           "prompt": "What is the color of the sky?",
-          "expected": "blue",
+          "expected": "purple",
           "case_id": "sky_blue"
         },
         "assert": [
@@ -414,7 +381,7 @@
     "scenarios": [],
     "env": {},
     "outputPath": [
-      "results/history/2026-02-25T00-32-27Z.json"
+      "results/latest.json"
     ],
     "extensions": [],
     "metadata": {},
@@ -422,11 +389,11 @@
   },
   "shareableUrl": null,
   "metadata": {
-    "promptfooVersion": "0.120.25",
+    "promptfooVersion": "0.120.24",
     "nodeVersion": "v20.20.0",
     "platform": "linux",
     "arch": "x64",
-    "exportedAt": "2026-02-25T00:34:09.380Z",
-    "evaluationCreatedAt": "2026-02-25T00:34:05.903Z"
+    "exportedAt": "2026-02-25T16:15:42.137Z",
+    "evaluationCreatedAt": "2026-02-25T16:15:18.402Z"
   }
 }
