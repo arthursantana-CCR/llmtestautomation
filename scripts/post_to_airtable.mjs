@@ -10,18 +10,40 @@ if (!pat || !baseId) {
 
 const latest = JSON.parse(fs.readFileSync("results/latest.json", "utf8"));
 
-// ---- Extract what we need from YOUR Promptfoo export shape ----
+// ---- Extract timestamps ----
 const exportedAt =
   latest?.metadata?.exportedAt ||
   latest?.results?.timestamp ||
   new Date().toISOString();
 
-const prompt =
-  latest?.results?.prompts?.[0]?.raw ||
-  latest?.config?.prompts?.[0] ||
-  "";
+// ---- Extract prompt(s) correctly (works with "{{prompt}}" templating) ----
+function extractPromptsForRun(obj) {
+  const rows = Array.isArray(obj?.results?.results) ? obj.results.results : [];
+  const prompts = rows
+    .map(r => String(r?.prompt?.raw || "").trim())
+    .filter(Boolean);
 
-// This is the array that contains per-provider eval results
+  // Deduplicate while preserving order
+  const seen = new Set();
+  const unique = [];
+  for (const p of prompts) {
+    if (!seen.has(p)) {
+      seen.add(p);
+      unique.push(p);
+    }
+  }
+  return unique;
+}
+
+const runPrompts = extractPromptsForRun(latest);
+
+// If only one prompt, store it as-is; if multiple, store as newline list
+const prompt =
+  runPrompts.length === 1
+    ? runPrompts[0]
+    : runPrompts.join("\n");
+
+// ---- This is the array that contains per-provider eval results ----
 const evalResults = Array.isArray(latest?.results?.results) ? latest.results.results : [];
 
 // Helper to pick the entry for a provider by prefix
@@ -48,11 +70,12 @@ function getPassed(r) {
 const openaiR = findByProviderPrefix("openai:");
 const claudeR = findByProviderPrefix("anthropic:");
 
-// Fields for Airtable
+// ---- GitHub run URL ----
 const githubRunUrl =
   process.env.GITHUB_RUN_URL ||
   `https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
 
+// ---- Airtable fields ----
 const fields = {
   RunID: exportedAt,          // Primary key / unique identifier
   RunTimeUTC: exportedAt,     // Date-time field
