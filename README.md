@@ -92,52 +92,9 @@ promptfooconfig.yaml
 
 ---
 
-## Step 4 — Enable GitHub Actions and Run the Workflow Manually
+## Step 4 — Configure Your Prompts and Models
 
-### What GitHub Actions is
-
-GitHub Actions is GitHub's built-in automation system. It allows you to define workflows — sequences of steps that run automatically in response to triggers like a schedule (e.g. daily at a set time) or a manual button click. In this repository, GitHub Actions is what runs the daily LLM evaluations, posts results to Airtable, and commits result files back to Git — all without any manual intervention once set up.
-
-### Why you need to enable it
-
-Scheduled workflows are disabled by default in newly created or copied repositories. This means that even if everything else is configured correctly, the daily evaluations will not run until Actions is explicitly enabled.
-
-### How to enable it
-
-Go to:
-```
-Repository → Actions tab
-```
-
-GitHub may display a message such as:
-
-> "Workflows aren't being run on this repository"
-
-Click **Enable workflows**.
-
-### Run the workflow once manually
-
-After enabling Actions, trigger a manual run to verify everything is working. Scheduled workflows may also not activate until they have been run at least once manually.
-
-Go to:
-```
-Actions → Daily LLM Eval (OpenAI + Claude)
-```
-
-Click **Run workflow**, then verify:
-- A new JSON file appears in `results/history/`
-- `results/latest.json` has updated
-- A new row appears in Airtable
-
-After this first successful run, the daily schedule will activate automatically.
-
----
-
-## The Only File You Need to Edit
-
-### `eval_config.yaml`
-
-This is the only file you should edit to change what gets tested.
+`eval_config.yaml` is the only file you need to edit. It defines which models to test, which prompts to run, and what a passing response looks like.
 
 **Minimal example (single prompt):**
 ```yaml
@@ -179,6 +136,47 @@ cases:
 ```
 
 Each case has its own `assert_contains`. The `id` is just a short, descriptive label. The pipeline runs all cases against all configured models.
+
+---
+
+## Step 5 — Enable GitHub Actions and Run the Workflow Manually
+
+### What GitHub Actions is
+
+GitHub Actions is GitHub's built-in automation system. It allows you to define workflows — sequences of steps that run automatically in response to triggers like a schedule (e.g. daily at a set time) or a manual button click. In this repository, GitHub Actions is what runs the daily LLM evaluations, posts results to Airtable, and commits result files back to Git — all without any manual intervention once set up.
+
+### Why you need to enable it
+
+Scheduled workflows are disabled by default in newly created or copied repositories. This means that even if everything else is configured correctly, the daily evaluations will not run until Actions is explicitly enabled.
+
+### How to enable it
+
+Go to:
+```
+Repository → Actions tab
+```
+
+GitHub may display a message such as:
+
+> "Workflows aren't being run on this repository"
+
+Click **Enable workflows**.
+
+### Run the workflow once manually
+
+After enabling Actions, trigger a manual run to verify everything is working. Scheduled workflows may also not activate until they have been run at least once manually.
+
+Go to:
+```
+Actions → Daily LLM Eval (OpenAI + Claude)
+```
+
+Click **Run workflow**, then verify:
+- A new JSON file appears in `results/history/`
+- `results/latest.json` has updated
+- A new row appears in Airtable
+
+After this first successful run, the daily schedule will activate automatically.
 
 ---
 
