@@ -18,9 +18,14 @@ const exportedAt =
 
 // ---- Extract prompt(s) correctly (works with "{{prompt}}" templating) ----
 function extractPromptsForRun(obj) {
-  const rows = Array.isArray(obj?.results?.results) ? obj.results.results : [];
+  // Promptfoo exports can vary by version; try a few common paths
+  const rows =
+    Array.isArray(obj?.results?.results) ? obj.results.results :
+    Array.isArray(obj?.results) ? obj.results :
+    [];
+
   const prompts = rows
-    .map(r => String(r?.prompt?.raw || "").trim())
+    .map(r => String(r?.prompt?.raw || r?.prompt || "").trim())
     .filter(Boolean);
 
   // Deduplicate while preserving order
@@ -43,51 +48,139 @@ const prompt =
     ? runPrompts[0]
     : runPrompts.join("\n");
 
-// ---- This is the array that contains per-provider eval results ----
-const evalResults = Array.isArray(latest?.results?.results) ? latest.results.results : [];
+// ---- Per (case × provider) results ----
+const evalResults =
+  Array.isArray(latest?.results?.results) ? latest.results.results :
+  Array.isArray(latest?.results) ? latest.results :
+  [];
 
-// Helper to pick the entry for a provider by prefix
-function findByProviderPrefix(prefix) {
-  const p = prefix.toLowerCase();
-  return evalResults.find(r => String(r?.provider?.id || "").toLowerCase().startsWith(p)) || null;
-}
-
-function getModelId(r) {
+// ------------------------------
+// Helpers: normalize fields
+// ------------------------------
+function providerId(r) {
   return String(r?.provider?.id || "");
 }
 
-function getOutput(r) {
-  return String(r?.response?.output || "");
+function caseId(r) {
+  return String(r?.case?.id || r?.case_id || r?.testCase?.id || r?.test_case_id || "");
 }
 
-function getPassed(r) {
+function outputText(r) {
+  // Promptfoo sometimes uses response.output; in some versions response may be a string
+  if (typeof r?.response?.output === "string") return r.response.output;
+  if (typeof r?.response === "string") return r.response;
+  // Some errors show up in r.error / r.response.error / r.response.errors
+  return "";
+}
+
+function extractErrorMessage(r) {
+  // Try multiple shapes used across promptfoo/provider adapters
+  const direct =
+    r?.error?.message ||
+    r?.error ||
+    r?.response?.error?.message ||
+    r?.response?.error ||
+    r?.response?.errors?.[0]?.message ||
+    r?.response?.errors?.[0];
+
+  if (direct) return String(direct);
+
+  // Sometimes provider adapters stash raw error in response.output with tags, so detect common patterns
+  const out = outputText(r);
+  if (out && /overloaded|429|529|rate|timeout|network|api call error/i.test(out)) {
+    return out;
+  }
+
+  return "";
+}
+
+function isError(r) {
+  // If we can extract a non-empty error message, treat as ERROR
+  return Boolean(extractErrorMessage(r));
+}
+
+function isPass(r) {
   // Prefer gradingResult.pass when present; else fall back to success
   if (typeof r?.gradingResult?.pass === "boolean") return r.gradingResult.pass;
   if (typeof r?.success === "boolean") return r.success;
   return false;
 }
 
-const openaiR = findByProviderPrefix("openai:");
-const claudeR = findByProviderPrefix("anthropic:");
+function formatCaseLine(r) {
+  const cid = caseId(r) || "(no_case_id)";
+  const err = extractErrorMessage(r);
+  if (err) {
+    return `- ${cid}: [ERROR] ${err}`;
+  }
+  const passed = isPass(r);
+  const out = outputText(r);
+  const outCompact = out ? out.replace(/\s+/g, " ").trim() : "";
+  const snippet = outCompact ? outCompact.slice(0, 280) : "";
+  return `- ${cid}: ${passed ? "[PASS]" : "[FAIL]"} ${snippet}`;
+}
+
+// ------------------------------
+// Aggregate results per provider
+// ------------------------------
+function summarizeProvider(prefix) {
+  const p = prefix.toLowerCase();
+  const rows = evalResults.filter(r =>
+    providerId(r).toLowerCase().startsWith(p)
+  );
+
+  if (rows.length === 0) {
+    return {
+      model: "",
+      passed: false,
+      output: "[ERROR] No results found for provider in results/latest.json",
+      status: "ERROR",
+    };
+  }
+
+  const model = providerId(rows[0]);
+
+  // Determine run status for this provider
+  const anyError = rows.some(isError);
+  const anyFail = rows.some(r => !isError(r) && !isPass(r));
+  const allPass = rows.every(r => !isError(r) && isPass(r));
+
+  // Status precedence: ERROR > FAIL > PASS
+  const status = anyError ? "ERROR" : (anyFail ? "FAIL" : "PASS");
+
+  // Checkbox meaning:
+  // - true only if PASS across all cases
+  // - false if FAIL or ERROR
+  const passed = allPass;
+
+  // Output: per-case summary lines (readable in Airtable)
+  const lines = rows.map(formatCaseLine);
+  const header = `${model} — ${status} (${rows.length} case${rows.length === 1 ? "" : "s"})`;
+  const output = [header, ...lines].join("\n");
+
+  return { model, passed, output, status };
+}
+
+const openaiSummary = summarizeProvider("openai:");
+const claudeSummary = summarizeProvider("anthropic:");
 
 // ---- GitHub run URL ----
 const githubRunUrl =
   process.env.GITHUB_RUN_URL ||
   `https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
 
-// ---- Airtable fields ----
+// ---- Airtable fields (must match table field names exactly) ----
 const fields = {
   RunID: exportedAt,          // Primary key / unique identifier
   RunTimeUTC: exportedAt,     // Date-time field
   Prompt: prompt,
 
-  OpenAI_Model: openaiR ? getModelId(openaiR) : "",
-  OpenAI_Output: openaiR ? getOutput(openaiR) : "",
-  OpenAI_Passed: openaiR ? getPassed(openaiR) : false,
+  OpenAI_Model: openaiSummary.model,
+  OpenAI_Output: openaiSummary.output,
+  OpenAI_Passed: openaiSummary.passed,
 
-  Claude_Model: claudeR ? getModelId(claudeR) : "",
-  Claude_Output: claudeR ? getOutput(claudeR) : "",
-  Claude_Passed: claudeR ? getPassed(claudeR) : false,
+  Claude_Model: claudeSummary.model,
+  Claude_Output: claudeSummary.output,
+  Claude_Passed: claudeSummary.passed,
 
   GitHub_Run_URL: githubRunUrl,
 };
