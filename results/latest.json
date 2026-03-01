@@ -1,8 +1,8 @@
 {
-  "evalId": "eval-LQr-2026-02-28T13:57:14",
+  "evalId": "eval-BFa-2026-03-01T14:00:01",
   "results": {
     "version": 3,
-    "timestamp": "2026-02-28T13:57:14.145Z",
+    "timestamp": "2026-03-01T14:00:01.377Z",
     "prompts": [
       {
         "id": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
@@ -16,12 +16,12 @@
           "testErrorCount": 0,
           "assertPassCount": 1,
           "assertFailCount": 0,
-          "totalLatencyMs": 1868,
+          "totalLatencyMs": 1789,
           "tokenUsage": {
             "prompt": 15,
-            "completion": 60,
+            "completion": 57,
             "cached": 0,
-            "total": 75,
+            "total": 72,
             "numRequests": 1,
             "completionDetails": {
               "reasoning": 0,
@@ -43,7 +43,7 @@
           },
           "namedScores": {},
           "namedScoresCount": {},
-          "cost": 0.000102
+          "cost": 0.0000972
         }
       },
       {
@@ -58,7 +58,7 @@
           "testErrorCount": 0,
           "assertPassCount": 1,
           "assertFailCount": 0,
-          "totalLatencyMs": 3062,
+          "totalLatencyMs": 3103,
           "tokenUsage": {
             "prompt": 15,
             "completion": 87,
@@ -91,7 +91,7 @@
     ],
     "results": [
       {
-        "cost": 0.000102,
+        "cost": 0.0000972,
         "gradingResult": {
           "pass": true,
           "score": 1,
@@ -120,8 +120,8 @@
             }
           ]
         },
-        "id": "86a613f7-d5ce-4c5f-85c8-e54acf84dce3",
-        "latencyMs": 1868,
+        "id": "44535e7d-1c9e-43c6-81ea-1b45e51bd9db",
+        "latencyMs": 1789,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -135,11 +135,11 @@
           "label": ""
         },
         "response": {
-          "output": "The color of the sky is typically blue during the day. This is because molecules in the Earth's atmosphere scatter sunlight in all directions, and blue light is scattered more than other colors due to its shorter wavelength. However, the sky can appear different colors at sunrise, sunset, or under various weather conditions.",
+          "output": "The color of the sky is typically blue during the day. This is because molecules in the Earth's atmosphere scatter sunlight, and blue light is scattered more than other colors due to its shorter wavelength. However, the sky can appear different colors at sunrise, sunset, or under various weather conditions.",
           "tokenUsage": {
-            "total": 75,
+            "total": 72,
             "prompt": 15,
-            "completion": 60,
+            "completion": 57,
             "numRequests": 1,
             "completionDetails": {
               "reasoning": 0,
@@ -148,9 +148,9 @@
             }
           },
           "cached": false,
-          "latencyMs": 1868,
+          "latencyMs": 1789,
           "finishReason": "stop",
-          "cost": 0.000102,
+          "cost": 0.0000972,
           "guardrails": {
             "flagged": false
           },
@@ -162,17 +162,17 @@
                 "access-control-expose-headers": "X-Request-ID",
                 "alt-svc": "h3=\":443\"; ma=86400",
                 "cf-cache-status": "DYNAMIC",
-                "cf-ray": "9d506e0bea2778e9-LAX",
+                "cf-ray": "9d58af811b03300b-SJC",
                 "connection": "keep-alive",
                 "content-encoding": "br",
                 "content-type": "application/json",
-                "date": "Sat, 28 Feb 2026 13:57:16 GMT",
+                "date": "Sun, 01 Mar 2026 14:00:03 GMT",
                 "openai-organization": "ccr-6gmybh",
-                "openai-processing-ms": "1157",
+                "openai-processing-ms": "1143",
                 "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
                 "openai-version": "2020-10-01",
                 "server": "cloudflare",
-                "set-cookie": "__cf_bm=HsFcgGBRi1UKCcMGLj1X0QuqW1ZeTwq6zyRNnjoRd8Y-1772287034.2231116-1.0.1.1-yzDUC3Xz77rB9hAqouA0v5K0XJOGUu_4jovh4y9dVrZ3RQSn0gcCJM6CYkJfcro773RXvKTpv_VysDUulceFomZ_8Rsu3xbdyYDM9E7N60uHp3PYNdnYAdgvowF8qErT; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 28 Feb 2026 14:27:16 GMT",
+                "set-cookie": "__cf_bm=QJBsv6npVx01cgA1U_DbAttMIpmfsB996ybfvCd3qic-1772373601.458258-1.0.1.1-Us1GKXGwAjqWB.zDnwHXY_xeU4JdEn6D_JmS3hi3_wRemT_PQcfu8wEBqty8AdOLghV785XVy2dbI_MXkTH4_K6QCMGXx.F2ttkz2w6el7tc0zouqcf0YRJVHnXEmJ_Y; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 01 Mar 2026 14:30:03 GMT",
                 "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
                 "transfer-encoding": "chunked",
                 "x-content-type-options": "nosniff",
@@ -183,7 +183,7 @@
                 "x-ratelimit-remaining-tokens": "199990",
                 "x-ratelimit-reset-requests": "120ms",
                 "x-ratelimit-reset-tokens": "3ms",
-                "x-request-id": "req_6ed87673a5d14a9b8101d98347f73c6a"
+                "x-request-id": "req_776a7083f216400b9da441681f2e3fc2"
               }
             }
           }
@@ -223,17 +223,17 @@
               "access-control-expose-headers": "X-Request-ID",
               "alt-svc": "h3=\":443\"; ma=86400",
               "cf-cache-status": "DYNAMIC",
-              "cf-ray": "9d506e0bea2778e9-LAX",
+              "cf-ray": "9d58af811b03300b-SJC",
               "connection": "keep-alive",
               "content-encoding": "br",
               "content-type": "application/json",
-              "date": "Sat, 28 Feb 2026 13:57:16 GMT",
+              "date": "Sun, 01 Mar 2026 14:00:03 GMT",
               "openai-organization": "ccr-6gmybh",
-              "openai-processing-ms": "1157",
+              "openai-processing-ms": "1143",
               "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
               "openai-version": "2020-10-01",
               "server": "cloudflare",
-              "set-cookie": "__cf_bm=HsFcgGBRi1UKCcMGLj1X0QuqW1ZeTwq6zyRNnjoRd8Y-1772287034.2231116-1.0.1.1-yzDUC3Xz77rB9hAqouA0v5K0XJOGUu_4jovh4y9dVrZ3RQSn0gcCJM6CYkJfcro773RXvKTpv_VysDUulceFomZ_8Rsu3xbdyYDM9E7N60uHp3PYNdnYAdgvowF8qErT; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 28 Feb 2026 14:27:16 GMT",
+              "set-cookie": "__cf_bm=QJBsv6npVx01cgA1U_DbAttMIpmfsB996ybfvCd3qic-1772373601.458258-1.0.1.1-Us1GKXGwAjqWB.zDnwHXY_xeU4JdEn6D_JmS3hi3_wRemT_PQcfu8wEBqty8AdOLghV785XVy2dbI_MXkTH4_K6QCMGXx.F2ttkz2w6el7tc0zouqcf0YRJVHnXEmJ_Y; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 01 Mar 2026 14:30:03 GMT",
               "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
               "transfer-encoding": "chunked",
               "x-content-type-options": "nosniff",
@@ -244,7 +244,7 @@
               "x-ratelimit-remaining-tokens": "199990",
               "x-ratelimit-reset-requests": "120ms",
               "x-ratelimit-reset-tokens": "3ms",
-              "x-request-id": "req_6ed87673a5d14a9b8101d98347f73c6a"
+              "x-request-id": "req_776a7083f216400b9da441681f2e3fc2"
             }
           },
           "_promptfooFileMetadata": {}
@@ -281,8 +281,8 @@
             }
           ]
         },
-        "id": "e9dc6649-0759-4cf0-b453-0329e38a396d",
-        "latencyMs": 3062,
+        "id": "9e5f6e92-2fa2-466f-9677-d7ac183c9c67",
+        "latencyMs": 3103,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -344,9 +344,9 @@
       "errors": 0,
       "tokenUsage": {
         "prompt": 30,
-        "completion": 147,
+        "completion": 144,
         "cached": 0,
-        "total": 177,
+        "total": 174,
         "numRequests": 2,
         "completionDetails": {
           "reasoning": 0,
@@ -366,7 +366,7 @@
           }
         }
       },
-      "durationMs": 3076
+      "durationMs": 3121
     }
   },
   "config": {
@@ -425,7 +425,7 @@
     "nodeVersion": "v20.20.0",
     "platform": "linux",
     "arch": "x64",
-    "exportedAt": "2026-02-28T13:57:17.319Z",
-    "evaluationCreatedAt": "2026-02-28T13:57:14.145Z"
+    "exportedAt": "2026-03-01T14:00:04.587Z",
+    "evaluationCreatedAt": "2026-03-01T14:00:01.377Z"
   }
 }
