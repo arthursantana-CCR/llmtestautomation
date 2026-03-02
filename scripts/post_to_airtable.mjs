@@ -114,8 +114,45 @@ function summarizeProvider(prefix) {
   };
 }
 
+// ---- Token helpers ----
+function tokenUsage(r) {
+  // Promptfoo v3 typically exposes tokens here:
+  // r.response.tokenUsage.{prompt, completion, total}
+  // Fallback to metrics.tokenUsage if needed.
+  const tu = r?.response?.tokenUsage || r?.metrics?.tokenUsage || null;
+
+  const prompt = Number(tu?.prompt ?? 0);
+  const completion = Number(tu?.completion ?? 0);
+
+  // Some providers include total; if not, compute it.
+  const total = Number(tu?.total ?? (prompt + completion));
+
+  const numRequests = Number(tu?.numRequests ?? 0);
+
+  return { prompt, completion, total, numRequests };
+}
+
+function summarizeTokensForProvider(prefix) {
+  const providerRows = groupByProviderPrefix(prefix);
+
+  return providerRows.reduce(
+    (acc, r) => {
+      const tu = tokenUsage(r);
+      acc.prompt += tu.prompt;
+      acc.completion += tu.completion;
+      acc.total += tu.total;
+      acc.numRequests += tu.numRequests;
+      return acc;
+    },
+    { prompt: 0, completion: 0, total: 0, numRequests: 0 }
+  );
+}
+
 const openai = summarizeProvider("openai:");
 const claude = summarizeProvider("anthropic:");
+
+const openaiTokens = summarizeTokensForProvider("openai:");
+const claudeTokens = summarizeTokensForProvider("anthropic:");
 
 const githubRunUrl =
   process.env.GITHUB_RUN_URL ||
@@ -131,9 +168,19 @@ const fields = {
   OpenAI_Output: openai.output,     // ✅ always show the model outputs
   OpenAI_Passed: openai.allPassed,  // ✅ unchecked if any case fails
 
+  // ✅ Token fields (OpenAI)
+  OpenAI_Input_Tokens: openaiTokens.prompt,
+  OpenAI_Output_Tokens: openaiTokens.completion,
+  OpenAI_Total_Tokens: openaiTokens.total,
+
   Claude_Model: claude.model,
   Claude_Output: claude.output,
   Claude_Passed: claude.allPassed,
+
+  // ✅ Token fields (Claude)
+  Claude_Input_Tokens: claudeTokens.prompt,
+  Claude_Output_Tokens: claudeTokens.completion,
+  Claude_Total_Tokens: claudeTokens.total,
 
   GitHub_Run_URL: githubRunUrl,
 };
