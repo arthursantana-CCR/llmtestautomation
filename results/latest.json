@@ -1,8 +1,8 @@
 {
-  "evalId": "eval-juP-2026-03-02T15:10:35",
+  "evalId": "eval-64w-2026-03-02T22:25:05",
   "results": {
     "version": 3,
-    "timestamp": "2026-03-02T15:10:35.781Z",
+    "timestamp": "2026-03-02T22:25:05.295Z",
     "prompts": [
       {
         "id": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
@@ -16,7 +16,7 @@
           "testErrorCount": 0,
           "assertPassCount": 1,
           "assertFailCount": 0,
-          "totalLatencyMs": 2133,
+          "totalLatencyMs": 1704,
           "tokenUsage": {
             "prompt": 15,
             "completion": 60,
@@ -58,7 +58,7 @@
           "testErrorCount": 0,
           "assertPassCount": 1,
           "assertFailCount": 0,
-          "totalLatencyMs": 3108,
+          "totalLatencyMs": 3087,
           "tokenUsage": {
             "prompt": 15,
             "completion": 87,
@@ -120,8 +120,8 @@
             }
           ]
         },
-        "id": "8fa5e188-a4ee-4f9b-8ac7-3a83385b33c0",
-        "latencyMs": 2133,
+        "id": "19399858-01f8-4e2a-b7e6-a4b33dd465ba",
+        "latencyMs": 1704,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -148,7 +148,7 @@
             }
           },
           "cached": false,
-          "latencyMs": 2133,
+          "latencyMs": 1704,
           "finishReason": "stop",
           "cost": 0.000102,
           "guardrails": {
@@ -162,17 +162,17 @@
                 "access-control-expose-headers": "X-Request-ID",
                 "alt-svc": "h3=\":443\"; ma=86400",
                 "cf-cache-status": "DYNAMIC",
-                "cf-ray": "9d615441f95b8b11-ORD",
+                "cf-ray": "9d63d0b8ef24f02e-DFW",
                 "connection": "keep-alive",
                 "content-encoding": "br",
                 "content-type": "application/json",
-                "date": "Mon, 02 Mar 2026 15:10:37 GMT",
+                "date": "Mon, 02 Mar 2026 22:25:07 GMT",
                 "openai-organization": "ccr-6gmybh",
-                "openai-processing-ms": "1175",
+                "openai-processing-ms": "885",
                 "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
                 "openai-version": "2020-10-01",
                 "server": "cloudflare",
-                "set-cookie": "__cf_bm=sFQDSisunuq2xoRMQ2Qs6MRc2ObPBmgSwoeACYySWts-1772464235.8394125-1.0.1.1-a_NhH2vumLlJNXewC6EvvFKUHUgmXyMMNmUOyYxkO.7GZ_DRML0zACcUWb5PfRQmtYMLhcbwIiGLjXH_ZfrCHtYuC3Dg9cX0N7qrkORw4pCNsZhd1xc6So5G2R1tECkv; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 02 Mar 2026 15:40:37 GMT",
+                "set-cookie": "__cf_bm=euFRQ2NmCoHvpNFGntY8nuaoBo_Mkcro_TVJFUPBVeo-1772490305.4289324-1.0.1.1-vFGetKjrW.nKkKXrJ_8kL_N4NftdFYDJqRFQn_hrA9NVHp9.C9CequUxBye.l0R6sfk75KFCRJFub699CodGg_fMuzXv4NlWHxHTQTnpny6AqKzVIy4gp2QtSnq0bFIM; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 02 Mar 2026 22:55:07 GMT",
                 "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
                 "transfer-encoding": "chunked",
                 "x-content-type-options": "nosniff",
@@ -183,7 +183,7 @@
                 "x-ratelimit-remaining-tokens": "199990",
                 "x-ratelimit-reset-requests": "120ms",
                 "x-ratelimit-reset-tokens": "3ms",
-                "x-request-id": "req_ca809158b44d4c27888ad47413353b1c"
+                "x-request-id": "req_10740a3aca8340468ab04c063d69b0aa"
               }
             }
           }
@@ -223,17 +223,17 @@
               "access-control-expose-headers": "X-Request-ID",
               "alt-svc": "h3=\":443\"; ma=86400",
               "cf-cache-status": "DYNAMIC",
-              "cf-ray": "9d615441f95b8b11-ORD",
+              "cf-ray": "9d63d0b8ef24f02e-DFW",
               "connection": "keep-alive",
               "content-encoding": "br",
               "content-type": "application/json",
-              "date": "Mon, 02 Mar 2026 15:10:37 GMT",
+              "date": "Mon, 02 Mar 2026 22:25:07 GMT",
               "openai-organization": "ccr-6gmybh",
-              "openai-processing-ms": "1175",
+              "openai-processing-ms": "885",
               "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
               "openai-version": "2020-10-01",
               "server": "cloudflare",
-              "set-cookie": "__cf_bm=sFQDSisunuq2xoRMQ2Qs6MRc2ObPBmgSwoeACYySWts-1772464235.8394125-1.0.1.1-a_NhH2vumLlJNXewC6EvvFKUHUgmXyMMNmUOyYxkO.7GZ_DRML0zACcUWb5PfRQmtYMLhcbwIiGLjXH_ZfrCHtYuC3Dg9cX0N7qrkORw4pCNsZhd1xc6So5G2R1tECkv; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 02 Mar 2026 15:40:37 GMT",
+              "set-cookie": "__cf_bm=euFRQ2NmCoHvpNFGntY8nuaoBo_Mkcro_TVJFUPBVeo-1772490305.4289324-1.0.1.1-vFGetKjrW.nKkKXrJ_8kL_N4NftdFYDJqRFQn_hrA9NVHp9.C9CequUxBye.l0R6sfk75KFCRJFub699CodGg_fMuzXv4NlWHxHTQTnpny6AqKzVIy4gp2QtSnq0bFIM; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 02 Mar 2026 22:55:07 GMT",
               "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
               "transfer-encoding": "chunked",
               "x-content-type-options": "nosniff",
@@ -244,7 +244,7 @@
               "x-ratelimit-remaining-tokens": "199990",
               "x-ratelimit-reset-requests": "120ms",
               "x-ratelimit-reset-tokens": "3ms",
-              "x-request-id": "req_ca809158b44d4c27888ad47413353b1c"
+              "x-request-id": "req_10740a3aca8340468ab04c063d69b0aa"
             }
           },
           "_promptfooFileMetadata": {}
@@ -281,8 +281,8 @@
             }
           ]
         },
-        "id": "3cedf5d8-3fe5-4b10-91c6-88633bcb1782",
-        "latencyMs": 3108,
+        "id": "d29b6048-0248-40c3-9a00-bf195d36567f",
+        "latencyMs": 3087,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -366,7 +366,7 @@
           }
         }
       },
-      "durationMs": 3121
+      "durationMs": 3103
     }
   },
   "config": {
@@ -425,7 +425,7 @@
     "nodeVersion": "v20.20.0",
     "platform": "linux",
     "arch": "x64",
-    "exportedAt": "2026-03-02T15:10:38.985Z",
-    "evaluationCreatedAt": "2026-03-02T15:10:35.781Z"
+    "exportedAt": "2026-03-02T22:25:08.494Z",
+    "evaluationCreatedAt": "2026-03-02T22:25:05.295Z"
   }
 }
