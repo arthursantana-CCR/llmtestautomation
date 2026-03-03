@@ -1,32 +1,48 @@
 # LLM Test Automation
 ### Promptfoo + GitHub Actions + Airtable
 
-This repository runs automated daily evaluations of multiple LLMs on the **same prompt suite**, stores JSON results in Git, and logs a summary row per run in Airtable. The goal is to track model performance **longitudinally** (over time) in a way that is usable by non-coders.
+This repository runs automated daily evaluations of multiple LLMs on the **same prompt suite**, stores raw evaluation results in Git, and logs a summary row per run in Airtable.
+
+The goal is to track model behavior longitudinally — allowing teams to observe how different models perform on the same tasks over time.
+
+The system was designed to support both simple prompt tests and complex evaluation tasks, such as automated scoring of student competencies.
+
+---
+
+## Repository Purpose
+
+This repository allows you to:
+
+- Run the same prompts daily against multiple AI models
+- Track changes in model behavior over time
+- Record outputs, pass/fail status, and token usage
+- Maintain full historical JSON records
+- Log summarized results to Airtable for analysis
+
+This makes it possible to monitor: model drift, response structure stability, cost trends, latency changes, and output verbosity.
 
 ---
 
 ## Getting Started
 
-Git is a version control system that tracks changes to files over time. GitHub is a platform that hosts Git repositories online, making it easy to share and collaborate on code. This project lives in a GitHub repository — to use it, you first need to make a copy of it on your own GitHub account, which is called **cloning**.
+Git is a version control system that tracks changes to files over time. GitHub hosts Git repositories online, allowing collaboration and automation.
 
-To clone this repository, go to the repository page on GitHub, click the green **Code** button, and follow the instructions to copy it to your account or local machine.
+To use this project, first clone the repository. From the repository page, click **Code** → **Clone repository**. You may clone to your local machine or to a new GitHub repository under your account.
 
-Once cloned, you will need to complete a few one-time configuration steps before the automation pipeline will run. Scheduled workflows are disabled by default in new repositories, and API credentials are never transferred via Git — they must be added manually.
-
-Follow the steps below before expecting any evaluations to run.
+After cloning, you must configure API credentials and enable GitHub Actions. Scheduled workflows will not run until this setup is completed.
 
 ---
 
 ## Step 1 — Add Required API Keys as Repository Secrets
 
-The pipeline calls external APIs (OpenAI, Anthropic, and Airtable) on your behalf. To do this securely, it needs credentials stored as GitHub Secrets — encrypted values that live in your repository settings and are injected into the workflow at runtime. They are never written into code or committed to Git.
+The pipeline calls external APIs (OpenAI, Anthropic, Airtable). These credentials must be stored securely as GitHub Secrets — encrypted values injected at runtime, never written into code or committed to Git.
 
-Go to:
+Navigate to:
 ```
-Repository → Settings → Secrets and variables → Actions → New repository secret
+Repository → Settings → Secrets and variables → Actions
 ```
 
-Add the following secrets:
+Click **New repository secret** and add the following:
 
 | Secret Name | Description |
 |---|---|
@@ -36,31 +52,34 @@ Add the following secrets:
 | `AIRTABLE_BASE_ID` | Airtable Base ID |
 | `AIRTABLE_TABLE_NAME` | Airtable table name (e.g. `DailyRuns`) |
 
-**Where to obtain these values:**
+### Where to obtain these values
 
-**OpenAI API Key** — OpenAI Dashboard → API Keys page
+**OpenAI** — OpenAI Dashboard → API Keys
 
-**Anthropic API Key** — Anthropic Console → API Keys
+**Anthropic** — Anthropic Console → API Keys
 
-**Airtable Personal Access Token (PAT):**
+**Airtable PAT:**
 1. Go to the Airtable Developer Hub.
 2. Create a Personal Access Token.
-3. Required scope: `data.records:write` (also recommended: `data.records:read`).
-4. Grant access to the specific base you will write to.
-5. Copy the PAT — you will only see it once.
+3. Required scopes: `data.records:write` (also recommended: `data.records:read`).
+4. Grant access to your Airtable base.
+5. Copy the PAT — it is shown only once.
 
-**Airtable Base ID** — found in the Airtable URL, looks like: `appXXXXXXXXXXXXXX`
+**Airtable Base ID** — found in the Airtable URL:
+```
+https://airtable.com/appXXXXXXXXXXXXXX/...
+```
 
 ---
 
-## Step 2 — Confirm Your Airtable Table Has the Expected Fields
+## Step 2 — Configure Airtable Fields
 
-The following fields must exist in your Airtable table with **exactly** these names:
+Your Airtable table must include these fields with **exactly** these names:
 
-| Field name | Type |
+| Field | Type |
 |---|---|
-| `RunID` | Text (can be primary) |
-| `RunTimeUTC` | Date + time |
+| `RunID` | Text |
+| `RunTimeUTC` | Date + Time |
 | `Prompt` | Long text |
 | `OpenAI_Model` | Text |
 | `OpenAI_Output` | Long text |
@@ -68,19 +87,29 @@ The following fields must exist in your Airtable table with **exactly** these na
 | `Claude_Model` | Text |
 | `Claude_Output` | Long text |
 | `Claude_Passed` | Checkbox |
+| `OpenAI_Input_Tokens` | Number |
+| `OpenAI_Output_Tokens` | Number |
+| `OpenAI_Total_Tokens` | Number |
+| `Claude_Input_Tokens` | Number |
+| `Claude_Output_Tokens` | Number |
+| `Claude_Total_Tokens` | Number |
 | `GitHub_Run_URL` | URL |
+
+The token fields track API usage per run and help estimate costs for larger experiments.
 
 ---
 
-## Step 3 — Confirm These Files Exist in the Repo
+## Step 3 — Confirm Required Files
+
+The repository should contain:
 
 | File | Purpose |
 |---|---|
-| `eval_config.yaml` | The file you edit to configure prompts and models |
-| `.github/workflows/daily-llm-eval.yml` | The scheduled workflow |
+| `eval_config.yaml` | User configuration for prompts and models |
+| `.github/workflows/daily-llm-eval.yml` | Scheduled workflow |
 | `scripts/build_promptfoo_config.mjs` | Generates Promptfoo config automatically |
 | `scripts/post_to_airtable.mjs` | Posts results to Airtable |
-| `package.json` + `package-lock.json` | Node dependencies |
+| `package.json` | Node dependencies |
 
 Your `.gitignore` should include:
 ```
@@ -88,38 +117,32 @@ node_modules/
 promptfooconfig.yaml
 ```
 
-`promptfooconfig.yaml` is auto-generated at runtime and should not be tracked in Git.
+`promptfooconfig.yaml` is generated automatically and should never be committed.
 
 ---
 
-## Step 4 — Configure Your Prompts and Models
+## Step 4 — Configure Your Evaluation
 
-`eval_config.yaml` is the only file you need to edit. It defines which models to test, which prompts to run, and what a passing response looks like.
+All evaluation configuration lives in `eval_config.yaml`. Most users will only ever edit this file.
 
-**Minimal example (single prompt):**
+### Example 1 — Simple Prompt Test
 ```yaml
-description: "Daily prompt suite (OpenAI + Claude)"
+description: "Daily prompt suite"
+
 openai_model: "openai:chat:gpt-4.1-mini"
 anthropic_model: "anthropic:messages:claude-sonnet-4-20250514"
+
 temperature: 0
+top_p: 1.0
 max_tokens: 256
 
 cases:
   - id: "sky_blue"
     prompt: "What is the color of the sky?"
     assert_contains: "blue"
-    assert_case_sensitive: false
 ```
 
-### Why `temperature` and `max_tokens` exist
-
-**`temperature`** controls randomness in generation. We default to `0` to keep outputs as stable as possible, so changes you observe over time are more likely due to model updates rather than sampling noise.
-
-**`max_tokens`** caps the maximum length of the model's output. This is a hard limit passed in the API call — not a "please be short" instruction. We set it to avoid overly long responses that could distort comparisons, runaway verbosity affecting pass/fail, and unnecessary cost.
-
-### Testing multiple prompts
-
-Add more items under `cases:`:
+### Example 2 — Multiple Prompt Tests
 ```yaml
 cases:
   - id: "sky_blue"
@@ -135,40 +158,85 @@ cases:
     assert_contains: "yellow"
 ```
 
-Each case has its own `assert_contains`. The `id` is just a short, descriptive label. The pipeline runs all cases against all configured models.
+Each case runs against every configured model.
+
+### Example 3 — Complex Evaluation Task (Education)
+
+The system also supports structured evaluation tasks such as automated rubric scoring. You can provide a rubric, a task instruction, and a student text:
+
+| Field | Purpose |
+|---|---|
+| `rubric` | Evaluation framework |
+| `task` | Instructions for the model |
+| `student_text` | Content to evaluate |
+```yaml
+rubric: |
+  CCR Critical Thinking rubric...
+
+task: |
+  Evaluate the student text using the rubric.
+
+cases:
+  - id: "student_001"
+    student_text: |
+      Student essay text...
+```
+
+The pipeline automatically constructs the full prompt.
+
+### Assertions
+
+Assertions verify whether the model output meets expectations. A case can require multiple assertions:
+```yaml
+assert_contains:
+  - "\"CRI1\""
+  - "\"CRI2\""
+  - "\"CRI3\""
+  - "\"CRI4\""
+  - "\"CRI5\""
+```
+
+This ensures required output fields exist. Assertions check structure, not correctness.
+
+### Generation Parameters
+
+| Parameter | Purpose |
+|---|---|
+| `temperature` | Randomness in output generation |
+| `top_p` | Nucleus sampling threshold |
+| `max_tokens` | Maximum response length |
+
+We set `temperature: 0` and `top_p: 1.0` to minimize randomness and ensure consistent results across runs.
+
+### System Instruction
+
+You may optionally define a `system_instruction` to standardize behavior across models and prevent provider defaults from affecting results:
+```yaml
+system_instruction: |
+  Follow the instructions exactly.
+  Return only the requested format.
+```
 
 ---
 
-## Step 5 — Enable GitHub Actions and Run the Workflow Manually
+## Step 5 — Enable GitHub Actions
 
-### What GitHub Actions is
+GitHub Actions is GitHub's built-in automation system. It runs workflows automatically on a schedule or when triggered manually. In this repository, GitHub Actions is responsible for running the daily LLM evaluations, posting results to Airtable, and committing result files back to Git — all without manual intervention once set up.
 
-GitHub Actions is GitHub's built-in automation system. It allows you to define workflows — sequences of steps that run automatically in response to triggers like a schedule (e.g. daily at a set time) or a manual button click. In this repository, GitHub Actions is what runs the daily LLM evaluations, posts results to Airtable, and commits result files back to Git — all without any manual intervention once set up.
-
-### Why you need to enable it
-
-Scheduled workflows are disabled by default in newly created or copied repositories. This means that even if everything else is configured correctly, the daily evaluations will not run until Actions is explicitly enabled.
-
-### How to enable it
+Scheduled workflows are disabled by default in newly created or copied repositories. You must enable them manually.
 
 Go to:
 ```
-Repository → Actions tab
+Repository → Actions
 ```
 
-GitHub may display a message such as:
+If workflows are disabled, click **Enable workflows**.
 
-> "Workflows aren't being run on this repository"
+### Run the Workflow Once Manually
 
-Click **Enable workflows**.
-
-### Run the workflow once manually
-
-After enabling Actions, trigger a manual run to verify everything is working. Scheduled workflows may also not activate until they have been run at least once manually.
-
-Go to:
+Scheduled workflows may not activate until they have been run at least once manually. Go to:
 ```
-Actions → Daily LLM Eval (OpenAI + Claude)
+Actions → Daily LLM Eval
 ```
 
 Click **Run workflow**, then verify:
@@ -176,50 +244,47 @@ Click **Run workflow**, then verify:
 - `results/latest.json` has updated
 - A new row appears in Airtable
 
-After this first successful run, the daily schedule will activate automatically.
+After the first successful run, the daily schedule activates automatically.
 
 ---
 
 ## Where Results Are Stored
 
-**In Git (this repository)**, each run produces:
+**In Git**, each run produces:
 - `results/history/<timestamp>.json` — immutable run history
 - `results/latest.json` — most recent run
 - `results/latest_timestamp.txt`
 
-These are committed back to the repo automatically by GitHub Actions.
+These files are committed automatically by the workflow.
 
-**In Airtable**, each run creates one row containing: run timestamp, prompt(s), OpenAI/Claude model IDs, outputs, pass/fail status, and the GitHub run URL.
+**In Airtable**, each run creates one row containing: timestamp, model IDs, outputs, pass/fail status, token usage, and the GitHub run link.
 
 ---
 
 ## How the Pipeline Works
 
-1. GitHub Actions triggers on a schedule (daily).
-2. The workflow reads `eval_config.yaml` and auto-generates `promptfooconfig.yaml`.
-3. Promptfoo runs the eval against OpenAI and Anthropic.
-4. Raw JSON results are written to `results/`.
-5. A summary row is POSTed to Airtable.
-6. Result files are committed back to Git.
+1. GitHub Actions triggers the workflow (daily or manual).
+2. `eval_config.yaml` is read.
+3. `build_promptfoo_config.mjs` generates `promptfooconfig.yaml`.
+4. Promptfoo executes the evaluation.
+5. Raw JSON results are written to `results/`.
+6. `post_to_airtable.mjs` posts a summary row to Airtable.
+7. Results are committed back to Git.
 
 ---
 
 ## Scheduling
 
-The workflow runs on a cron schedule defined in `.github/workflows/daily-llm-eval.yml`.
+The workflow schedule is defined in `.github/workflows/daily-llm-eval.yml`.
 
-Default: **10:00 GMT-3 (13:00 UTC)**
+Default: **10:00 GMT-3**
 
-To change the schedule, edit the `cron` expression in that file.
+To change the schedule, modify the `cron` expression in that file.
 
 ---
 
-## What to Change Most Often
+## What Users Usually Change
 
-Most users only ever touch `eval_config.yaml`:
+Most users only modify `eval_config.yaml`. Common edits include: prompts or student texts, expected assertions, models under test, and generation parameters.
 
-- `cases` — prompts and expected outputs
-- `openai_model` / `anthropic_model` — model versions
-- `temperature` / `max_tokens` — generation parameters
-
-Everything else is infrastructure.
+Everything else in the repository is infrastructure.
