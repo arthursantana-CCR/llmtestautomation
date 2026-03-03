@@ -1,9 +1,10 @@
-description: "Daily prompt suite (OpenAI + Claude)"
+description: "Daily smoke test"
 
 openai_model: "openai:chat:gpt-4.1-mini"
 anthropic_model: "anthropic:messages:claude-sonnet-4-20250514"
 
 temperature: 0
+top_p: 1.0
 max_tokens: 256
 
 cases:
