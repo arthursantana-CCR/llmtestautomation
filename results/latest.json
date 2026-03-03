@@ -1,8 +1,8 @@
 {
-  "evalId": "eval-hff-2026-03-03T01:32:33",
+  "evalId": "eval-pJr-2026-03-03T15:35:46",
   "results": {
     "version": 3,
-    "timestamp": "2026-03-03T01:32:33.467Z",
+    "timestamp": "2026-03-03T15:35:46.337Z",
     "prompts": [
       {
         "id": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
@@ -16,7 +16,7 @@
           "testErrorCount": 0,
           "assertPassCount": 1,
           "assertFailCount": 0,
-          "totalLatencyMs": 1625,
+          "totalLatencyMs": 1551,
           "tokenUsage": {
             "prompt": 15,
             "completion": 60,
@@ -58,7 +58,7 @@
           "testErrorCount": 0,
           "assertPassCount": 1,
           "assertFailCount": 0,
-          "totalLatencyMs": 3433,
+          "totalLatencyMs": 2997,
           "tokenUsage": {
             "prompt": 15,
             "completion": 87,
@@ -120,8 +120,8 @@
             }
           ]
         },
-        "id": "ce36ef8b-2755-4207-ad06-107897f5d2fc",
-        "latencyMs": 1625,
+        "id": "c90809e0-ea84-44c8-9f31-a1ba500c76df",
+        "latencyMs": 1551,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -148,7 +148,7 @@
             }
           },
           "cached": false,
-          "latencyMs": 1625,
+          "latencyMs": 1551,
           "finishReason": "stop",
           "cost": 0.000102,
           "guardrails": {
@@ -162,17 +162,17 @@
                 "access-control-expose-headers": "X-Request-ID",
                 "alt-svc": "h3=\":443\"; ma=86400",
                 "cf-cache-status": "DYNAMIC",
-                "cf-ray": "9d64e355abbf6212-ORD",
+                "cf-ray": "9d69b683293f578c-IAD",
                 "connection": "keep-alive",
                 "content-encoding": "br",
                 "content-type": "application/json",
-                "date": "Tue, 03 Mar 2026 01:32:35 GMT",
+                "date": "Tue, 03 Mar 2026 15:35:47 GMT",
                 "openai-organization": "ccr-6gmybh",
-                "openai-processing-ms": "1003",
+                "openai-processing-ms": "877",
                 "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
                 "openai-version": "2020-10-01",
                 "server": "cloudflare",
-                "set-cookie": "__cf_bm=ZmO.6IEvFruuryNJW7T4fW2lS9J0yKWDRWSHoesa5NM-1772501553.54419-1.0.1.1-rpvuDMte_4Fk0vsgSk.eaboNWjq2uGORL7BL8gAfgkk10kSpEPedf9uDi2AAR7EuiJgZlfVVbOrHULYLye5eRUQWR14yG7JIQqU8MDdxR35tyspmVILxwMVx9T5958jl; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Tue, 03 Mar 2026 02:02:35 GMT",
+                "set-cookie": "__cf_bm=PsCg2PDGroV0kU28Z4e.00z7EfLCBqcMWZ.mEJj5xNI-1772552146.4306762-1.0.1.1-UsGODv6PCG3.OTSUtHBLg3TNfA2xTBw_pNUg_DvfGXFP2zIForKEE7fYP6nYPsUWR.dR2U_PvsPEJoszOqOWNZJJrmXWSB.OeelgAJZ0yv5B__4OAkVFu1.nZ2vX_gYZ; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Tue, 03 Mar 2026 16:05:47 GMT",
                 "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
                 "transfer-encoding": "chunked",
                 "x-content-type-options": "nosniff",
@@ -183,7 +183,7 @@
                 "x-ratelimit-remaining-tokens": "199990",
                 "x-ratelimit-reset-requests": "120ms",
                 "x-ratelimit-reset-tokens": "3ms",
-                "x-request-id": "req_9dfede9af2bc4f90aa524a3898dcb336"
+                "x-request-id": "req_7a6eefc03a7d4038bdbaa6b420005aa3"
               }
             }
           }
@@ -223,17 +223,17 @@
               "access-control-expose-headers": "X-Request-ID",
               "alt-svc": "h3=\":443\"; ma=86400",
               "cf-cache-status": "DYNAMIC",
-              "cf-ray": "9d64e355abbf6212-ORD",
+              "cf-ray": "9d69b683293f578c-IAD",
               "connection": "keep-alive",
               "content-encoding": "br",
               "content-type": "application/json",
-              "date": "Tue, 03 Mar 2026 01:32:35 GMT",
+              "date": "Tue, 03 Mar 2026 15:35:47 GMT",
               "openai-organization": "ccr-6gmybh",
-              "openai-processing-ms": "1003",
+              "openai-processing-ms": "877",
               "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
               "openai-version": "2020-10-01",
               "server": "cloudflare",
-              "set-cookie": "__cf_bm=ZmO.6IEvFruuryNJW7T4fW2lS9J0yKWDRWSHoesa5NM-1772501553.54419-1.0.1.1-rpvuDMte_4Fk0vsgSk.eaboNWjq2uGORL7BL8gAfgkk10kSpEPedf9uDi2AAR7EuiJgZlfVVbOrHULYLye5eRUQWR14yG7JIQqU8MDdxR35tyspmVILxwMVx9T5958jl; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Tue, 03 Mar 2026 02:02:35 GMT",
+              "set-cookie": "__cf_bm=PsCg2PDGroV0kU28Z4e.00z7EfLCBqcMWZ.mEJj5xNI-1772552146.4306762-1.0.1.1-UsGODv6PCG3.OTSUtHBLg3TNfA2xTBw_pNUg_DvfGXFP2zIForKEE7fYP6nYPsUWR.dR2U_PvsPEJoszOqOWNZJJrmXWSB.OeelgAJZ0yv5B__4OAkVFu1.nZ2vX_gYZ; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Tue, 03 Mar 2026 16:05:47 GMT",
               "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
               "transfer-encoding": "chunked",
               "x-content-type-options": "nosniff",
@@ -244,7 +244,7 @@
               "x-ratelimit-remaining-tokens": "199990",
               "x-ratelimit-reset-requests": "120ms",
               "x-ratelimit-reset-tokens": "3ms",
-              "x-request-id": "req_9dfede9af2bc4f90aa524a3898dcb336"
+              "x-request-id": "req_7a6eefc03a7d4038bdbaa6b420005aa3"
             }
           },
           "_promptfooFileMetadata": {}
@@ -281,8 +281,8 @@
             }
           ]
         },
-        "id": "8707c055-e39f-4cba-a5ca-64e9ca52a3e3",
-        "latencyMs": 3433,
+        "id": "f465574c-2bc5-4c0e-aadd-d39cd45f7a7c",
+        "latencyMs": 2997,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -366,7 +366,7 @@
           }
         }
       },
-      "durationMs": 3448
+      "durationMs": 3012
     }
   },
   "config": {
@@ -428,7 +428,7 @@
     "nodeVersion": "v20.20.0",
     "platform": "linux",
     "arch": "x64",
-    "exportedAt": "2026-03-03T01:32:37.014Z",
-    "evaluationCreatedAt": "2026-03-03T01:32:33.467Z"
+    "exportedAt": "2026-03-03T15:35:49.428Z",
+    "evaluationCreatedAt": "2026-03-03T15:35:46.337Z"
   }
 }
