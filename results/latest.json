@@ -1,8 +1,8 @@
 {
-  "evalId": "eval-V7w-2026-03-03T01:27:48",
+  "evalId": "eval-hff-2026-03-03T01:32:33",
   "results": {
     "version": 3,
-    "timestamp": "2026-03-03T01:27:48.663Z",
+    "timestamp": "2026-03-03T01:32:33.467Z",
     "prompts": [
       {
         "id": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
@@ -16,12 +16,12 @@
           "testErrorCount": 0,
           "assertPassCount": 1,
           "assertFailCount": 0,
-          "totalLatencyMs": 3591,
+          "totalLatencyMs": 1625,
           "tokenUsage": {
             "prompt": 15,
-            "completion": 70,
+            "completion": 60,
             "cached": 0,
-            "total": 85,
+            "total": 75,
             "numRequests": 1,
             "completionDetails": {
               "reasoning": 0,
@@ -43,7 +43,7 @@
           },
           "namedScores": {},
           "namedScoresCount": {},
-          "cost": 0.00011800000000000001
+          "cost": 0.000102
         }
       },
       {
@@ -58,7 +58,7 @@
           "testErrorCount": 0,
           "assertPassCount": 1,
           "assertFailCount": 0,
-          "totalLatencyMs": 2951,
+          "totalLatencyMs": 3433,
           "tokenUsage": {
             "prompt": 15,
             "completion": 87,
@@ -91,6 +91,167 @@
     ],
     "results": [
       {
+        "cost": 0.000102,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "{{expected}}",
+                "caseSensitive": false
+              },
+              "metadata": {
+                "renderedAssertionValue": "blue"
+              }
+            }
+          ]
+        },
+        "id": "ce36ef8b-2755-4207-ad06-107897f5d2fc",
+        "latencyMs": 1625,
+        "namedScores": {},
+        "prompt": {
+          "raw": "What is the color of the sky?",
+          "label": "{{prompt}}",
+          "config": {}
+        },
+        "promptId": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:gpt-4.1-mini",
+          "label": ""
+        },
+        "response": {
+          "output": "The color of the sky is typically blue during the day. This is because molecules in the Earth's atmosphere scatter sunlight in all directions, and blue light is scattered more than other colors due to its shorter wavelength. However, the sky can appear different colors at sunrise, sunset, or under various weather conditions.",
+          "tokenUsage": {
+            "total": 75,
+            "prompt": 15,
+            "completion": 60,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            }
+          },
+          "cached": false,
+          "latencyMs": 1625,
+          "finishReason": "stop",
+          "cost": 0.000102,
+          "guardrails": {
+            "flagged": false
+          },
+          "metadata": {
+            "http": {
+              "status": 200,
+              "statusText": "OK",
+              "headers": {
+                "access-control-expose-headers": "X-Request-ID",
+                "alt-svc": "h3=\":443\"; ma=86400",
+                "cf-cache-status": "DYNAMIC",
+                "cf-ray": "9d64e355abbf6212-ORD",
+                "connection": "keep-alive",
+                "content-encoding": "br",
+                "content-type": "application/json",
+                "date": "Tue, 03 Mar 2026 01:32:35 GMT",
+                "openai-organization": "ccr-6gmybh",
+                "openai-processing-ms": "1003",
+                "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
+                "openai-version": "2020-10-01",
+                "server": "cloudflare",
+                "set-cookie": "__cf_bm=ZmO.6IEvFruuryNJW7T4fW2lS9J0yKWDRWSHoesa5NM-1772501553.54419-1.0.1.1-rpvuDMte_4Fk0vsgSk.eaboNWjq2uGORL7BL8gAfgkk10kSpEPedf9uDi2AAR7EuiJgZlfVVbOrHULYLye5eRUQWR14yG7JIQqU8MDdxR35tyspmVILxwMVx9T5958jl; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Tue, 03 Mar 2026 02:02:35 GMT",
+                "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+                "transfer-encoding": "chunked",
+                "x-content-type-options": "nosniff",
+                "x-openai-proxy-wasm": "v0.1",
+                "x-ratelimit-limit-requests": "500",
+                "x-ratelimit-limit-tokens": "200000",
+                "x-ratelimit-remaining-requests": "499",
+                "x-ratelimit-remaining-tokens": "199990",
+                "x-ratelimit-reset-requests": "120ms",
+                "x-ratelimit-reset-tokens": "3ms",
+                "x-request-id": "req_9dfede9af2bc4f90aa524a3898dcb336"
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "vars": {
+            "prompt": "What is the color of the sky?",
+            "expected": "blue",
+            "case_id": "sky_blue"
+          },
+          "metadata": {
+            "case_id": "sky_blue"
+          },
+          "options": {},
+          "assert": [
+            {
+              "type": "contains",
+              "value": "{{expected}}",
+              "caseSensitive": false
+            }
+          ]
+        },
+        "testIdx": 0,
+        "vars": {
+          "prompt": "What is the color of the sky?",
+          "expected": "blue",
+          "case_id": "sky_blue"
+        },
+        "metadata": {
+          "case_id": "sky_blue",
+          "http": {
+            "status": 200,
+            "statusText": "OK",
+            "headers": {
+              "access-control-expose-headers": "X-Request-ID",
+              "alt-svc": "h3=\":443\"; ma=86400",
+              "cf-cache-status": "DYNAMIC",
+              "cf-ray": "9d64e355abbf6212-ORD",
+              "connection": "keep-alive",
+              "content-encoding": "br",
+              "content-type": "application/json",
+              "date": "Tue, 03 Mar 2026 01:32:35 GMT",
+              "openai-organization": "ccr-6gmybh",
+              "openai-processing-ms": "1003",
+              "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
+              "openai-version": "2020-10-01",
+              "server": "cloudflare",
+              "set-cookie": "__cf_bm=ZmO.6IEvFruuryNJW7T4fW2lS9J0yKWDRWSHoesa5NM-1772501553.54419-1.0.1.1-rpvuDMte_4Fk0vsgSk.eaboNWjq2uGORL7BL8gAfgkk10kSpEPedf9uDi2AAR7EuiJgZlfVVbOrHULYLye5eRUQWR14yG7JIQqU8MDdxR35tyspmVILxwMVx9T5958jl; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Tue, 03 Mar 2026 02:02:35 GMT",
+              "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+              "transfer-encoding": "chunked",
+              "x-content-type-options": "nosniff",
+              "x-openai-proxy-wasm": "v0.1",
+              "x-ratelimit-limit-requests": "500",
+              "x-ratelimit-limit-tokens": "200000",
+              "x-ratelimit-remaining-requests": "499",
+              "x-ratelimit-remaining-tokens": "199990",
+              "x-ratelimit-reset-requests": "120ms",
+              "x-ratelimit-reset-tokens": "3ms",
+              "x-request-id": "req_9dfede9af2bc4f90aa524a3898dcb336"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
         "cost": 0.0013499999999999999,
         "gradingResult": {
           "pass": true,
@@ -120,8 +281,8 @@
             }
           ]
         },
-        "id": "bfc97dcf-637c-4963-ba51-da7b611a8bc1",
-        "latencyMs": 2951,
+        "id": "8707c055-e39f-4cba-a5ca-64e9ca52a3e3",
+        "latencyMs": 3433,
         "namedScores": {},
         "prompt": {
           "raw": "What is the color of the sky?",
@@ -175,167 +336,6 @@
           "_promptfooFileMetadata": {}
         },
         "failureReason": 0
-      },
-      {
-        "cost": 0.00011800000000000001,
-        "gradingResult": {
-          "pass": true,
-          "score": 1,
-          "reason": "All assertions passed",
-          "namedScores": {},
-          "tokensUsed": {
-            "total": 0,
-            "prompt": 0,
-            "completion": 0,
-            "cached": 0,
-            "numRequests": 0
-          },
-          "componentResults": [
-            {
-              "pass": true,
-              "score": 1,
-              "reason": "Assertion passed",
-              "assertion": {
-                "type": "contains",
-                "value": "{{expected}}",
-                "caseSensitive": false
-              },
-              "metadata": {
-                "renderedAssertionValue": "blue"
-              }
-            }
-          ]
-        },
-        "id": "6b05833f-02ce-4ff5-8897-3bb3b88293a9",
-        "latencyMs": 3591,
-        "namedScores": {},
-        "prompt": {
-          "raw": "What is the color of the sky?",
-          "label": "{{prompt}}",
-          "config": {}
-        },
-        "promptId": "effa18501e44aafd9bc42a2f64ffc9b6350f94025520ca2ed382f9bdc4b6e982",
-        "promptIdx": 0,
-        "provider": {
-          "id": "openai:chat:gpt-4.1-mini",
-          "label": ""
-        },
-        "response": {
-          "output": "The color of the sky is typically blue during the day. This is because molecules in the Earth's atmosphere scatter sunlight in all directions, and blue light is scattered more than other colors due to its shorter wavelength. However, the sky can appear different colors at different times, such as red or orange during sunrise and sunset, or gray when it is cloudy.",
-          "tokenUsage": {
-            "total": 85,
-            "prompt": 15,
-            "completion": 70,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0,
-              "acceptedPrediction": 0,
-              "rejectedPrediction": 0
-            }
-          },
-          "cached": false,
-          "latencyMs": 3591,
-          "finishReason": "stop",
-          "cost": 0.00011800000000000001,
-          "guardrails": {
-            "flagged": false
-          },
-          "metadata": {
-            "http": {
-              "status": 200,
-              "statusText": "OK",
-              "headers": {
-                "access-control-expose-headers": "X-Request-ID",
-                "alt-svc": "h3=\":443\"; ma=86400",
-                "cf-cache-status": "DYNAMIC",
-                "cf-ray": "9d64dc61dcd7e5b8-IAD",
-                "connection": "keep-alive",
-                "content-encoding": "br",
-                "content-type": "application/json",
-                "date": "Tue, 03 Mar 2026 01:27:52 GMT",
-                "openai-organization": "ccr-6gmybh",
-                "openai-processing-ms": "1558",
-                "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
-                "openai-version": "2020-10-01",
-                "server": "cloudflare",
-                "set-cookie": "__cf_bm=sMBdqEoLGfGW6Wb_jLvNfd8ozAu2LKH4Y6qJq40glic-1772501268.7718828-1.0.1.1-sEBpuXFgzqaxaL5dL5sh6Bu3nD76F7TO.dQJKATis2jO7Z7ddIsz8G_jBGp0JEfaWTuZcMku4CGFYbQW.vweePFLcTNWwkFEV60IDYJBfufg_iYHPo0Y2Pv_RBYjh6Om; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Tue, 03 Mar 2026 01:57:52 GMT",
-                "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
-                "transfer-encoding": "chunked",
-                "x-content-type-options": "nosniff",
-                "x-openai-proxy-wasm": "v0.1",
-                "x-ratelimit-limit-requests": "500",
-                "x-ratelimit-limit-tokens": "200000",
-                "x-ratelimit-remaining-requests": "499",
-                "x-ratelimit-remaining-tokens": "199990",
-                "x-ratelimit-reset-requests": "120ms",
-                "x-ratelimit-reset-tokens": "3ms",
-                "x-request-id": "req_53cde05380164cf2bb31b9bc37eaf437"
-              }
-            }
-          }
-        },
-        "score": 1,
-        "success": true,
-        "testCase": {
-          "vars": {
-            "prompt": "What is the color of the sky?",
-            "expected": "blue",
-            "case_id": "sky_blue"
-          },
-          "metadata": {
-            "case_id": "sky_blue"
-          },
-          "options": {},
-          "assert": [
-            {
-              "type": "contains",
-              "value": "{{expected}}",
-              "caseSensitive": false
-            }
-          ]
-        },
-        "testIdx": 0,
-        "vars": {
-          "prompt": "What is the color of the sky?",
-          "expected": "blue",
-          "case_id": "sky_blue"
-        },
-        "metadata": {
-          "case_id": "sky_blue",
-          "http": {
-            "status": 200,
-            "statusText": "OK",
-            "headers": {
-              "access-control-expose-headers": "X-Request-ID",
-              "alt-svc": "h3=\":443\"; ma=86400",
-              "cf-cache-status": "DYNAMIC",
-              "cf-ray": "9d64dc61dcd7e5b8-IAD",
-              "connection": "keep-alive",
-              "content-encoding": "br",
-              "content-type": "application/json",
-              "date": "Tue, 03 Mar 2026 01:27:52 GMT",
-              "openai-organization": "ccr-6gmybh",
-              "openai-processing-ms": "1558",
-              "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
-              "openai-version": "2020-10-01",
-              "server": "cloudflare",
-              "set-cookie": "__cf_bm=sMBdqEoLGfGW6Wb_jLvNfd8ozAu2LKH4Y6qJq40glic-1772501268.7718828-1.0.1.1-sEBpuXFgzqaxaL5dL5sh6Bu3nD76F7TO.dQJKATis2jO7Z7ddIsz8G_jBGp0JEfaWTuZcMku4CGFYbQW.vweePFLcTNWwkFEV60IDYJBfufg_iYHPo0Y2Pv_RBYjh6Om; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Tue, 03 Mar 2026 01:57:52 GMT",
-              "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
-              "transfer-encoding": "chunked",
-              "x-content-type-options": "nosniff",
-              "x-openai-proxy-wasm": "v0.1",
-              "x-ratelimit-limit-requests": "500",
-              "x-ratelimit-limit-tokens": "200000",
-              "x-ratelimit-remaining-requests": "499",
-              "x-ratelimit-remaining-tokens": "199990",
-              "x-ratelimit-reset-requests": "120ms",
-              "x-ratelimit-reset-tokens": "3ms",
-              "x-request-id": "req_53cde05380164cf2bb31b9bc37eaf437"
-            }
-          },
-          "_promptfooFileMetadata": {}
-        },
-        "failureReason": 0
       }
     ],
     "stats": {
@@ -344,9 +344,9 @@
       "errors": 0,
       "tokenUsage": {
         "prompt": 30,
-        "completion": 157,
+        "completion": 147,
         "cached": 0,
-        "total": 187,
+        "total": 177,
         "numRequests": 2,
         "completionDetails": {
           "reasoning": 0,
@@ -366,12 +366,12 @@
           }
         }
       },
-      "durationMs": 3727
+      "durationMs": 3448
     }
   },
   "config": {
     "tags": {},
-    "description": "Daily prompt suite (OpenAI + Claude)",
+    "description": "Daily smoke test",
     "prompts": [
       "{{prompt}}"
     ],
@@ -428,7 +428,7 @@
     "nodeVersion": "v20.20.0",
     "platform": "linux",
     "arch": "x64",
-    "exportedAt": "2026-03-03T01:27:52.473Z",
-    "evaluationCreatedAt": "2026-03-03T01:27:48.663Z"
+    "exportedAt": "2026-03-03T01:32:37.014Z",
+    "evaluationCreatedAt": "2026-03-03T01:32:33.467Z"
   }
 }
