@@ -1,8 +1,8 @@
 {
-  "evalId": "eval-tEx-2026-03-26T14:19:56",
+  "evalId": "eval-rLl-2026-03-27T14:04:06",
   "results": {
     "version": 3,
-    "timestamp": "2026-03-26T14:19:56.866Z",
+    "timestamp": "2026-03-27T14:04:06.959Z",
     "prompts": [
       {
         "id": "63e11fb3b49194db5a3fb4ec05b0f9b6fd68197766cdaf38d698bd28487fc9f2",
@@ -16,12 +16,12 @@
           "testErrorCount": 0,
           "assertPassCount": 0,
           "assertFailCount": 0,
-          "totalLatencyMs": 19686,
+          "totalLatencyMs": 7597,
           "tokenUsage": {
             "prompt": 801,
-            "completion": 612,
+            "completion": 559,
             "cached": 0,
-            "total": 1413,
+            "total": 1360,
             "numRequests": 1,
             "completionDetails": {
               "reasoning": 0,
@@ -43,7 +43,7 @@
           },
           "namedScores": {},
           "namedScoresCount": {},
-          "cost": 0.0012996000000000001
+          "cost": 0.0012148
         }
       },
       {
@@ -58,7 +58,7 @@
           "testErrorCount": 0,
           "assertPassCount": 0,
           "assertFailCount": 0,
-          "totalLatencyMs": 8986,
+          "totalLatencyMs": 9278,
           "tokenUsage": {
             "prompt": 910,
             "completion": 452,
@@ -91,6 +91,145 @@
     ],
     "results": [
       {
+        "cost": 0.0012148,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "No assertions",
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          }
+        },
+        "id": "5eaba5e2-2c86-4c4c-8d34-e3a4b21e8a59",
+        "latencyMs": 7597,
+        "namedScores": {},
+        "prompt": {
+          "raw": "[SYSTEM]\nYou are an AI model being evaluated in an automated benchmarking system.\nFollow the task instructions exactly.\nReturn only the requested output format.\nDo not include explanations outside the JSON structure.\n[/SYSTEM]\n\nRUBRIC:\nCCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.\n\nCRI1 — Identifying, clarifying, and organizing information\n1: Information is disorganized or unclear.\n2: Information is somewhat clear but lacks organization.\n3: Information is clear and organized, but organization or clarity could be improved.\n4: Information is clearly identified, well organized, and easy to follow.\n\nCRI2 — Assessing validity and quality of information\n1: No attempt to assess the quality or validity of information used.\n2: Some critical assessment of information, but limited or shallow.\n3: Assessment of information is present, but depth or justification could be improved.\n4: Thorough assessment of information’s validity and quality, with clear justification.\n\nCRI3 — Weighing pros and cons of alternative choices\n1: No consideration of alternative choices or their implications.\n2: Some discussion of alternative choices but lacks depth or balance.\n3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.\n4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.\n\nCRI4 — Applying sound reasoning to decision-making\n1: Reasoning is flawed or lacks logical structure.\n2: Reasoning is generally sound but has logical gaps.\n3: Reasoning is sound but minor logical gaps are present.\n4: Strong logical reasoning throughout, with clear and evidence-based decision-making.\n\nCRI5 — Reflecting critically on one's own reasoning and assumptions\n1: No reflection on personal reasoning or assumptions.\n2: Some acknowledgment of reasoning or assumptions, though limited in depth.\n3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.\n4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.\n\nTASK:\nTask:\nEvaluate the student text using the CCR Critical Thinking rubric above.\n\nRequirements:\n1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.\n2) Provide 1–3 direct quotes from the student text as evidence for each score.\n3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.\n\nOutput format (JSON only, no markdown):\n\n{\n  \"CRI1\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI2\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI3\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI4\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI5\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"overall\": {\"summary\": \"...\"}\n}\n\nSTUDENT_TEXT:\nI think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\n\nThere are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.\n\nAfter thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.",
+          "label": "[SYSTEM]\nYou are an AI model being evaluated in an automated benchmarking system.\nFollow the task instructions exactly.\nReturn only the requested output format.\nDo not include explanations outside the JSON structure.\n[/SYSTEM]\n\n{{prompt}}",
+          "config": {}
+        },
+        "promptId": "63e11fb3b49194db5a3fb4ec05b0f9b6fd68197766cdaf38d698bd28487fc9f2",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:gpt-4.1-mini",
+          "label": ""
+        },
+        "response": {
+          "output": "{\n  \"CRI1\": {\n    \"level\": 4,\n    \"evidence\": [\n      \"Right now it is only 15 minutes, and many students still feel tired when class starts again.\",\n      \"If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\",\n      \"There are some disadvantages too. If recess is longer, teachers might have less time to finish lessons.\"\n    ],\n    \"rationale\": \"The student clearly identifies the current situation, potential benefits, and drawbacks of longer recess in a well-organized and easy-to-follow manner.\"\n  },\n  \"CRI2\": {\n    \"level\": 3,\n    \"evidence\": [\n      \"many students still feel tired when class starts again.\",\n      \"students could rest and move their bodies, which might help them focus better in class.\",\n      \"teachers might have less time to finish lessons.\"\n    ],\n    \"rationale\": \"The student assesses the validity of information by citing observable effects and potential consequences, but the assessment lacks deeper justification or evidence.\"\n  },\n  \"CRI3\": {\n    \"level\": 3,\n    \"evidence\": [\n      \"There are some disadvantages too. If recess is longer, teachers might have less time to finish lessons.\",\n      \"Some students might also get too excited and it could take longer for everyone to calm down after recess.\",\n      \"After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.\"\n    ],\n    \"rationale\": \"The student provides a balanced analysis of pros and cons and considers implications, though the discussion could be more detailed.\"\n  },\n  \"CRI4\": {\n    \"level\": 4,\n    \"evidence\": [\n      \"After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.\"\n    ],\n    \"rationale\": \"The student demonstrates strong logical reasoning by weighing pros and cons and making a clear, evidence-based decision.\"\n  },\n  \"CRI5\": {\n    \"level\": 2,\n    \"evidence\": [\n      \"After thinking about both sides, I believe a slightly longer recess would be best...\"\n    ],\n    \"rationale\": \"The student shows some acknowledgment of their reasoning process but does not deeply reflect on or critique their own assumptions.\"\n  },\n  \"overall\": {\n    \"summary\": \"The student demonstrates clear and organized presentation of ideas with balanced consideration of pros and cons and strong logical reasoning in decision-making. However, the assessment of information quality could be more thorough, and deeper reflection on personal reasoning and assumptions is needed to enhance critical thinking.\"\n  }\n}",
+          "tokenUsage": {
+            "total": 1360,
+            "prompt": 801,
+            "completion": 559,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            }
+          },
+          "cached": false,
+          "latencyMs": 7597,
+          "finishReason": "stop",
+          "cost": 0.0012148,
+          "guardrails": {
+            "flagged": false
+          },
+          "metadata": {
+            "http": {
+              "status": 200,
+              "statusText": "OK",
+              "headers": {
+                "access-control-expose-headers": "X-Request-ID",
+                "alt-svc": "h3=\":443\"; ma=86400",
+                "cf-cache-status": "DYNAMIC",
+                "cf-ray": "9e2ef14008f4faf4-SJC",
+                "connection": "keep-alive",
+                "content-encoding": "br",
+                "content-type": "application/json",
+                "date": "Fri, 27 Mar 2026 14:04:14 GMT",
+                "openai-organization": "ccr-6gmybh",
+                "openai-processing-ms": "6814",
+                "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
+                "openai-version": "2020-10-01",
+                "server": "cloudflare",
+                "set-cookie": "__cf_bm=h.ziIMsIGCCGLNOK5e_Jzw_qI.KLJ155MiqclVO4Ve4-1774620247.0507133-1.0.1.1-Erggkhck2m7VZUplC1r4rG1sZ5iokWeSEjg93xh..85LrqBtkXb632vKNs60Zw.hlAxVQ5Ur417Ym0ZXGKnMw0HraKUKeOM7J4MCaRIJnUeU0f03HeJF.AjKo_r0oOfR; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Fri, 27 Mar 2026 14:34:14 GMT",
+                "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+                "transfer-encoding": "chunked",
+                "x-content-type-options": "nosniff",
+                "x-openai-proxy-wasm": "v0.1",
+                "x-ratelimit-limit-requests": "500",
+                "x-ratelimit-limit-tokens": "200000",
+                "x-ratelimit-remaining-requests": "499",
+                "x-ratelimit-remaining-tokens": "199091",
+                "x-ratelimit-reset-requests": "120ms",
+                "x-ratelimit-reset-tokens": "272ms",
+                "x-request-id": "req_1a6ab7ddbcd24f55ac44261899b915b8"
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "vars": {
+            "prompt": "RUBRIC:\nCCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.\n\nCRI1 — Identifying, clarifying, and organizing information\n1: Information is disorganized or unclear.\n2: Information is somewhat clear but lacks organization.\n3: Information is clear and organized, but organization or clarity could be improved.\n4: Information is clearly identified, well organized, and easy to follow.\n\nCRI2 — Assessing validity and quality of information\n1: No attempt to assess the quality or validity of information used.\n2: Some critical assessment of information, but limited or shallow.\n3: Assessment of information is present, but depth or justification could be improved.\n4: Thorough assessment of information’s validity and quality, with clear justification.\n\nCRI3 — Weighing pros and cons of alternative choices\n1: No consideration of alternative choices or their implications.\n2: Some discussion of alternative choices but lacks depth or balance.\n3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.\n4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.\n\nCRI4 — Applying sound reasoning to decision-making\n1: Reasoning is flawed or lacks logical structure.\n2: Reasoning is generally sound but has logical gaps.\n3: Reasoning is sound but minor logical gaps are present.\n4: Strong logical reasoning throughout, with clear and evidence-based decision-making.\n\nCRI5 — Reflecting critically on one's own reasoning and assumptions\n1: No reflection on personal reasoning or assumptions.\n2: Some acknowledgment of reasoning or assumptions, though limited in depth.\n3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.\n4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.\n\nTASK:\nTask:\nEvaluate the student text using the CCR Critical Thinking rubric above.\n\nRequirements:\n1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.\n2) Provide 1–3 direct quotes from the student text as evidence for each score.\n3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.\n\nOutput format (JSON only, no markdown):\n\n{\n  \"CRI1\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI2\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI3\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI4\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI5\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"overall\": {\"summary\": \"...\"}\n}\n\nSTUDENT_TEXT:\nI think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\n\nThere are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.\n\nAfter thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.",
+            "expected": "",
+            "case_id": "cri_student_recess_argument"
+          },
+          "metadata": {
+            "case_id": "cri_student_recess_argument"
+          },
+          "options": {},
+          "assert": []
+        },
+        "testIdx": 0,
+        "vars": {
+          "prompt": "RUBRIC:\nCCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.\n\nCRI1 — Identifying, clarifying, and organizing information\n1: Information is disorganized or unclear.\n2: Information is somewhat clear but lacks organization.\n3: Information is clear and organized, but organization or clarity could be improved.\n4: Information is clearly identified, well organized, and easy to follow.\n\nCRI2 — Assessing validity and quality of information\n1: No attempt to assess the quality or validity of information used.\n2: Some critical assessment of information, but limited or shallow.\n3: Assessment of information is present, but depth or justification could be improved.\n4: Thorough assessment of information’s validity and quality, with clear justification.\n\nCRI3 — Weighing pros and cons of alternative choices\n1: No consideration of alternative choices or their implications.\n2: Some discussion of alternative choices but lacks depth or balance.\n3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.\n4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.\n\nCRI4 — Applying sound reasoning to decision-making\n1: Reasoning is flawed or lacks logical structure.\n2: Reasoning is generally sound but has logical gaps.\n3: Reasoning is sound but minor logical gaps are present.\n4: Strong logical reasoning throughout, with clear and evidence-based decision-making.\n\nCRI5 — Reflecting critically on one's own reasoning and assumptions\n1: No reflection on personal reasoning or assumptions.\n2: Some acknowledgment of reasoning or assumptions, though limited in depth.\n3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.\n4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.\n\nTASK:\nTask:\nEvaluate the student text using the CCR Critical Thinking rubric above.\n\nRequirements:\n1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.\n2) Provide 1–3 direct quotes from the student text as evidence for each score.\n3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.\n\nOutput format (JSON only, no markdown):\n\n{\n  \"CRI1\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI2\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI3\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI4\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI5\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"overall\": {\"summary\": \"...\"}\n}\n\nSTUDENT_TEXT:\nI think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\n\nThere are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.\n\nAfter thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.",
+          "expected": "",
+          "case_id": "cri_student_recess_argument"
+        },
+        "metadata": {
+          "case_id": "cri_student_recess_argument",
+          "http": {
+            "status": 200,
+            "statusText": "OK",
+            "headers": {
+              "access-control-expose-headers": "X-Request-ID",
+              "alt-svc": "h3=\":443\"; ma=86400",
+              "cf-cache-status": "DYNAMIC",
+              "cf-ray": "9e2ef14008f4faf4-SJC",
+              "connection": "keep-alive",
+              "content-encoding": "br",
+              "content-type": "application/json",
+              "date": "Fri, 27 Mar 2026 14:04:14 GMT",
+              "openai-organization": "ccr-6gmybh",
+              "openai-processing-ms": "6814",
+              "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
+              "openai-version": "2020-10-01",
+              "server": "cloudflare",
+              "set-cookie": "__cf_bm=h.ziIMsIGCCGLNOK5e_Jzw_qI.KLJ155MiqclVO4Ve4-1774620247.0507133-1.0.1.1-Erggkhck2m7VZUplC1r4rG1sZ5iokWeSEjg93xh..85LrqBtkXb632vKNs60Zw.hlAxVQ5Ur417Ym0ZXGKnMw0HraKUKeOM7J4MCaRIJnUeU0f03HeJF.AjKo_r0oOfR; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Fri, 27 Mar 2026 14:34:14 GMT",
+              "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+              "transfer-encoding": "chunked",
+              "x-content-type-options": "nosniff",
+              "x-openai-proxy-wasm": "v0.1",
+              "x-ratelimit-limit-requests": "500",
+              "x-ratelimit-limit-tokens": "200000",
+              "x-ratelimit-remaining-requests": "499",
+              "x-ratelimit-remaining-tokens": "199091",
+              "x-ratelimit-reset-requests": "120ms",
+              "x-ratelimit-reset-tokens": "272ms",
+              "x-request-id": "req_1a6ab7ddbcd24f55ac44261899b915b8"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
         "cost": 0.009510000000000001,
         "gradingResult": {
           "pass": true,
@@ -104,8 +243,8 @@
             "numRequests": 0
           }
         },
-        "id": "1f612f21-5215-4efd-9004-8e966b857869",
-        "latencyMs": 8986,
+        "id": "3fae099a-f2cc-4d78-ae02-7c841b60660d",
+        "latencyMs": 9278,
         "namedScores": {},
         "prompt": {
           "raw": "[SYSTEM]\nYou are an AI model being evaluated in an automated benchmarking system.\nFollow the task instructions exactly.\nReturn only the requested output format.\nDo not include explanations outside the JSON structure.\n[/SYSTEM]\n\nRUBRIC:\nCCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.\n\nCRI1 — Identifying, clarifying, and organizing information\n1: Information is disorganized or unclear.\n2: Information is somewhat clear but lacks organization.\n3: Information is clear and organized, but organization or clarity could be improved.\n4: Information is clearly identified, well organized, and easy to follow.\n\nCRI2 — Assessing validity and quality of information\n1: No attempt to assess the quality or validity of information used.\n2: Some critical assessment of information, but limited or shallow.\n3: Assessment of information is present, but depth or justification could be improved.\n4: Thorough assessment of information’s validity and quality, with clear justification.\n\nCRI3 — Weighing pros and cons of alternative choices\n1: No consideration of alternative choices or their implications.\n2: Some discussion of alternative choices but lacks depth or balance.\n3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.\n4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.\n\nCRI4 — Applying sound reasoning to decision-making\n1: Reasoning is flawed or lacks logical structure.\n2: Reasoning is generally sound but has logical gaps.\n3: Reasoning is sound but minor logical gaps are present.\n4: Strong logical reasoning throughout, with clear and evidence-based decision-making.\n\nCRI5 — Reflecting critically on one's own reasoning and assumptions\n1: No reflection on personal reasoning or assumptions.\n2: Some acknowledgment of reasoning or assumptions, though limited in depth.\n3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.\n4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.\n\nTASK:\nTask:\nEvaluate the student text using the CCR Critical Thinking rubric above.\n\nRequirements:\n1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.\n2) Provide 1–3 direct quotes from the student text as evidence for each score.\n3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.\n\nOutput format (JSON only, no markdown):\n\n{\n  \"CRI1\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI2\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI3\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI4\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI5\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"overall\": {\"summary\": \"...\"}\n}\n\nSTUDENT_TEXT:\nI think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\n\nThere are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.\n\nAfter thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.",
@@ -153,145 +292,6 @@
           "_promptfooFileMetadata": {}
         },
         "failureReason": 0
-      },
-      {
-        "cost": 0.0012996000000000001,
-        "gradingResult": {
-          "pass": true,
-          "score": 1,
-          "reason": "No assertions",
-          "tokensUsed": {
-            "total": 0,
-            "prompt": 0,
-            "completion": 0,
-            "cached": 0,
-            "numRequests": 0
-          }
-        },
-        "id": "75a0c67f-242b-4606-8a51-11a67e299dfd",
-        "latencyMs": 19686,
-        "namedScores": {},
-        "prompt": {
-          "raw": "[SYSTEM]\nYou are an AI model being evaluated in an automated benchmarking system.\nFollow the task instructions exactly.\nReturn only the requested output format.\nDo not include explanations outside the JSON structure.\n[/SYSTEM]\n\nRUBRIC:\nCCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.\n\nCRI1 — Identifying, clarifying, and organizing information\n1: Information is disorganized or unclear.\n2: Information is somewhat clear but lacks organization.\n3: Information is clear and organized, but organization or clarity could be improved.\n4: Information is clearly identified, well organized, and easy to follow.\n\nCRI2 — Assessing validity and quality of information\n1: No attempt to assess the quality or validity of information used.\n2: Some critical assessment of information, but limited or shallow.\n3: Assessment of information is present, but depth or justification could be improved.\n4: Thorough assessment of information’s validity and quality, with clear justification.\n\nCRI3 — Weighing pros and cons of alternative choices\n1: No consideration of alternative choices or their implications.\n2: Some discussion of alternative choices but lacks depth or balance.\n3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.\n4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.\n\nCRI4 — Applying sound reasoning to decision-making\n1: Reasoning is flawed or lacks logical structure.\n2: Reasoning is generally sound but has logical gaps.\n3: Reasoning is sound but minor logical gaps are present.\n4: Strong logical reasoning throughout, with clear and evidence-based decision-making.\n\nCRI5 — Reflecting critically on one's own reasoning and assumptions\n1: No reflection on personal reasoning or assumptions.\n2: Some acknowledgment of reasoning or assumptions, though limited in depth.\n3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.\n4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.\n\nTASK:\nTask:\nEvaluate the student text using the CCR Critical Thinking rubric above.\n\nRequirements:\n1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.\n2) Provide 1–3 direct quotes from the student text as evidence for each score.\n3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.\n\nOutput format (JSON only, no markdown):\n\n{\n  \"CRI1\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI2\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI3\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI4\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI5\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"overall\": {\"summary\": \"...\"}\n}\n\nSTUDENT_TEXT:\nI think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\n\nThere are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.\n\nAfter thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.",
-          "label": "[SYSTEM]\nYou are an AI model being evaluated in an automated benchmarking system.\nFollow the task instructions exactly.\nReturn only the requested output format.\nDo not include explanations outside the JSON structure.\n[/SYSTEM]\n\n{{prompt}}",
-          "config": {}
-        },
-        "promptId": "63e11fb3b49194db5a3fb4ec05b0f9b6fd68197766cdaf38d698bd28487fc9f2",
-        "promptIdx": 0,
-        "provider": {
-          "id": "openai:chat:gpt-4.1-mini",
-          "label": ""
-        },
-        "response": {
-          "output": "{\n  \"CRI1\": {\n    \"level\": 4,\n    \"evidence\": [\n      \"Right now it is only 15 minutes, and many students still feel tired when class starts again.\",\n      \"If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\",\n      \"After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.\"\n    ],\n    \"rationale\": \"The student clearly identifies the current situation, presents pros and cons, and concludes with a well-organized and easy-to-follow argument.\"\n  },\n  \"CRI2\": {\n    \"level\": 3,\n    \"evidence\": [\n      \"If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\",\n      \"If recess is longer, teachers might have less time to finish lessons.\",\n      \"Some students might also get too excited and it could take longer for everyone to calm down after recess.\"\n    ],\n    \"rationale\": \"The student assesses the validity of information by considering potential benefits and drawbacks, but the assessment lacks deeper justification or evidence.\"\n  },\n  \"CRI3\": {\n    \"level\": 3,\n    \"evidence\": [\n      \"There are some disadvantages too. If recess is longer, teachers might have less time to finish lessons.\",\n      \"Some students might also get too excited and it could take longer for everyone to calm down after recess.\",\n      \"After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.\"\n    ],\n    \"rationale\": \"The student provides a balanced analysis of pros and cons and makes a reasoned choice, though the discussion could be more detailed.\"\n  },\n  \"CRI4\": {\n    \"level\": 4,\n    \"evidence\": [\n      \"After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.\"\n    ],\n    \"rationale\": \"The student's reasoning is clear, logical, and evidence-based, showing a strong connection between the pros and cons and the final decision.\"\n  },\n  \"CRI5\": {\n    \"level\": 2,\n    \"evidence\": [\n      \"After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.\"\n    ],\n    \"rationale\": \"The student acknowledges considering both sides but does not deeply reflect on their own reasoning or assumptions.\"\n  },\n  \"overall\": {\n    \"summary\": \"The student demonstrates strong organization and clear reasoning in presenting and weighing the pros and cons of extending recess. They effectively identify key points and make a logical decision. However, the assessment of information could be more thorough, and deeper reflection on their own assumptions and reasoning would strengthen their critical thinking.\"\n  }\n}",
-          "tokenUsage": {
-            "total": 1413,
-            "prompt": 801,
-            "completion": 612,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0,
-              "acceptedPrediction": 0,
-              "rejectedPrediction": 0
-            }
-          },
-          "cached": false,
-          "latencyMs": 19686,
-          "finishReason": "stop",
-          "cost": 0.0012996000000000001,
-          "guardrails": {
-            "flagged": false
-          },
-          "metadata": {
-            "http": {
-              "status": 200,
-              "statusText": "OK",
-              "headers": {
-                "access-control-expose-headers": "X-Request-ID",
-                "alt-svc": "h3=\":443\"; ma=86400",
-                "cf-cache-status": "DYNAMIC",
-                "cf-ray": "9e26cb10ef682d23-IAD",
-                "connection": "keep-alive",
-                "content-encoding": "br",
-                "content-type": "application/json",
-                "date": "Thu, 26 Mar 2026 14:20:16 GMT",
-                "openai-organization": "ccr-6gmybh",
-                "openai-processing-ms": "18641",
-                "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
-                "openai-version": "2020-10-01",
-                "server": "cloudflare",
-                "set-cookie": "__cf_bm=k5RFTXokGURzBfQ6f8j9uBn3dhVJ5xwYAjfGFryAlX8-1774534796.9417694-1.0.1.1-jiJgT2xehc1ozd3deB5U1BQqNuWrcBs.sqA3c0JJDN0gRJzc25w0jOrfuVZxzox6cyVUyud71I.VPuc0gFBLtZ_v8CSkqwN7uvdkjKUdmgv2BwooLYAnMVoPXHOL7Ho0; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Thu, 26 Mar 2026 14:50:16 GMT",
-                "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
-                "transfer-encoding": "chunked",
-                "x-content-type-options": "nosniff",
-                "x-openai-proxy-wasm": "v0.1",
-                "x-ratelimit-limit-requests": "500",
-                "x-ratelimit-limit-tokens": "200000",
-                "x-ratelimit-remaining-requests": "499",
-                "x-ratelimit-remaining-tokens": "199091",
-                "x-ratelimit-reset-requests": "120ms",
-                "x-ratelimit-reset-tokens": "272ms",
-                "x-request-id": "req_85815921300944faa841d73e1292349e"
-              }
-            }
-          }
-        },
-        "score": 1,
-        "success": true,
-        "testCase": {
-          "vars": {
-            "prompt": "RUBRIC:\nCCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.\n\nCRI1 — Identifying, clarifying, and organizing information\n1: Information is disorganized or unclear.\n2: Information is somewhat clear but lacks organization.\n3: Information is clear and organized, but organization or clarity could be improved.\n4: Information is clearly identified, well organized, and easy to follow.\n\nCRI2 — Assessing validity and quality of information\n1: No attempt to assess the quality or validity of information used.\n2: Some critical assessment of information, but limited or shallow.\n3: Assessment of information is present, but depth or justification could be improved.\n4: Thorough assessment of information’s validity and quality, with clear justification.\n\nCRI3 — Weighing pros and cons of alternative choices\n1: No consideration of alternative choices or their implications.\n2: Some discussion of alternative choices but lacks depth or balance.\n3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.\n4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.\n\nCRI4 — Applying sound reasoning to decision-making\n1: Reasoning is flawed or lacks logical structure.\n2: Reasoning is generally sound but has logical gaps.\n3: Reasoning is sound but minor logical gaps are present.\n4: Strong logical reasoning throughout, with clear and evidence-based decision-making.\n\nCRI5 — Reflecting critically on one's own reasoning and assumptions\n1: No reflection on personal reasoning or assumptions.\n2: Some acknowledgment of reasoning or assumptions, though limited in depth.\n3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.\n4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.\n\nTASK:\nTask:\nEvaluate the student text using the CCR Critical Thinking rubric above.\n\nRequirements:\n1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.\n2) Provide 1–3 direct quotes from the student text as evidence for each score.\n3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.\n\nOutput format (JSON only, no markdown):\n\n{\n  \"CRI1\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI2\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI3\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI4\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI5\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"overall\": {\"summary\": \"...\"}\n}\n\nSTUDENT_TEXT:\nI think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\n\nThere are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.\n\nAfter thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.",
-            "expected": "",
-            "case_id": "cri_student_recess_argument"
-          },
-          "metadata": {
-            "case_id": "cri_student_recess_argument"
-          },
-          "options": {},
-          "assert": []
-        },
-        "testIdx": 0,
-        "vars": {
-          "prompt": "RUBRIC:\nCCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.\n\nCRI1 — Identifying, clarifying, and organizing information\n1: Information is disorganized or unclear.\n2: Information is somewhat clear but lacks organization.\n3: Information is clear and organized, but organization or clarity could be improved.\n4: Information is clearly identified, well organized, and easy to follow.\n\nCRI2 — Assessing validity and quality of information\n1: No attempt to assess the quality or validity of information used.\n2: Some critical assessment of information, but limited or shallow.\n3: Assessment of information is present, but depth or justification could be improved.\n4: Thorough assessment of information’s validity and quality, with clear justification.\n\nCRI3 — Weighing pros and cons of alternative choices\n1: No consideration of alternative choices or their implications.\n2: Some discussion of alternative choices but lacks depth or balance.\n3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.\n4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.\n\nCRI4 — Applying sound reasoning to decision-making\n1: Reasoning is flawed or lacks logical structure.\n2: Reasoning is generally sound but has logical gaps.\n3: Reasoning is sound but minor logical gaps are present.\n4: Strong logical reasoning throughout, with clear and evidence-based decision-making.\n\nCRI5 — Reflecting critically on one's own reasoning and assumptions\n1: No reflection on personal reasoning or assumptions.\n2: Some acknowledgment of reasoning or assumptions, though limited in depth.\n3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.\n4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.\n\nTASK:\nTask:\nEvaluate the student text using the CCR Critical Thinking rubric above.\n\nRequirements:\n1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.\n2) Provide 1–3 direct quotes from the student text as evidence for each score.\n3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.\n\nOutput format (JSON only, no markdown):\n\n{\n  \"CRI1\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI2\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI3\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI4\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"CRI5\": {\"level\": <1-4>, \"evidence\": [\"...\",\"...\"], \"rationale\": \"...\"},\n  \"overall\": {\"summary\": \"...\"}\n}\n\nSTUDENT_TEXT:\nI think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.\n\nThere are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.\n\nAfter thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.",
-          "expected": "",
-          "case_id": "cri_student_recess_argument"
-        },
-        "metadata": {
-          "case_id": "cri_student_recess_argument",
-          "http": {
-            "status": 200,
-            "statusText": "OK",
-            "headers": {
-              "access-control-expose-headers": "X-Request-ID",
-              "alt-svc": "h3=\":443\"; ma=86400",
-              "cf-cache-status": "DYNAMIC",
-              "cf-ray": "9e26cb10ef682d23-IAD",
-              "connection": "keep-alive",
-              "content-encoding": "br",
-              "content-type": "application/json",
-              "date": "Thu, 26 Mar 2026 14:20:16 GMT",
-              "openai-organization": "ccr-6gmybh",
-              "openai-processing-ms": "18641",
-              "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
-              "openai-version": "2020-10-01",
-              "server": "cloudflare",
-              "set-cookie": "__cf_bm=k5RFTXokGURzBfQ6f8j9uBn3dhVJ5xwYAjfGFryAlX8-1774534796.9417694-1.0.1.1-jiJgT2xehc1ozd3deB5U1BQqNuWrcBs.sqA3c0JJDN0gRJzc25w0jOrfuVZxzox6cyVUyud71I.VPuc0gFBLtZ_v8CSkqwN7uvdkjKUdmgv2BwooLYAnMVoPXHOL7Ho0; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Thu, 26 Mar 2026 14:50:16 GMT",
-              "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
-              "transfer-encoding": "chunked",
-              "x-content-type-options": "nosniff",
-              "x-openai-proxy-wasm": "v0.1",
-              "x-ratelimit-limit-requests": "500",
-              "x-ratelimit-limit-tokens": "200000",
-              "x-ratelimit-remaining-requests": "499",
-              "x-ratelimit-remaining-tokens": "199091",
-              "x-ratelimit-reset-requests": "120ms",
-              "x-ratelimit-reset-tokens": "272ms",
-              "x-request-id": "req_85815921300944faa841d73e1292349e"
-            }
-          },
-          "_promptfooFileMetadata": {}
-        },
-        "failureReason": 0
       }
     ],
     "stats": {
@@ -300,9 +300,9 @@
       "errors": 0,
       "tokenUsage": {
         "prompt": 1711,
-        "completion": 1064,
+        "completion": 1011,
         "cached": 0,
-        "total": 2775,
+        "total": 2722,
         "numRequests": 2,
         "completionDetails": {
           "reasoning": 0,
@@ -322,7 +322,7 @@
           }
         }
       },
-      "durationMs": 19828
+      "durationMs": 9299
     }
   },
   "config": {
@@ -379,7 +379,7 @@
     "nodeVersion": "v20.20.1",
     "platform": "linux",
     "arch": "x64",
-    "exportedAt": "2026-03-26T14:20:16.983Z",
-    "evaluationCreatedAt": "2026-03-26T14:19:56.866Z"
+    "exportedAt": "2026-03-27T14:04:16.519Z",
+    "evaluationCreatedAt": "2026-03-27T14:04:06.959Z"
   }
 }
